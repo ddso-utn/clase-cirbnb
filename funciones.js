@@ -29,9 +29,18 @@ function obtenerTotalReservas(reservas) {
   }, 0);
 }
 
+function alojamientosConCaracteristicas(alojamientos, caracteristicas) {
+  return alojamientos.filter(alojamiento => {
+    return caracteristicas.every(caracteristica => {
+      return alojamiento.caracteristicas.includes(caracteristica);
+    });
+  });
+}
+
 module.exports = {
   aumentarPrecioDiario,
   alojamientoMasCaro,
   filtrarPorPrecio,
   obtenerTotalReservas,
+  alojamientosConCaracteristicas,
 };

@@ -12,6 +12,7 @@ class Alojamiento {
     this.precioPorNoche = precioPorNoche;
     this.categoria = categoria;
     this.reservas = [];
+    this.caracteristicas = [];
   }
 
   getDescripcion() {
@@ -29,6 +30,10 @@ class Alojamiento {
 
   agregarReserva(reserva) {
     this.reservas.push(reserva);
+  }
+
+  agregarCaracteristica(caracteristica) {
+    this.caracteristicas.push(caracteristica);
   }
 }
 

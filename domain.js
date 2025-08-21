@@ -11,10 +11,17 @@ class Alojamiento {
     this.nombre = nombre;
     this.precioPorNoche = precioPorNoche;
     this.categoria = categoria;
+    this.reservas = [];
   }
 
   getDescripcion() {
     return `${this.nombre} (${this.categoria}) - ${this.precioPorNoche} por noche`;
+  }
+
+  tieneConflictoConFechas(fechaInicio, fechaFin) {
+    return this.reservas.some(reserva => {
+      return fechaInicio < reserva.diaFin && fechaFin > reserva.diaInicio;
+    });
   }
 }
 

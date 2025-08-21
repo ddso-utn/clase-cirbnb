@@ -23,6 +23,10 @@ class Alojamiento {
       return fechaInicio < reserva.diaFin && fechaFin > reserva.diaInicio;
     });
   }
+
+  agregarReserva(reserva) {
+    this.reservas.push(reserva);
+  }
 }
 
 class Reserva {

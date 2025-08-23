@@ -20,12 +20,9 @@ class Alojamiento {
   }
 
   tieneConflictoConFechas(fechaInicio, fechaFin) {
-    for (const reserva of this.reservas) {
-      if (fechaInicio < reserva.diaFin && fechaFin > reserva.diaInicio) {
-        return true;
-      }
-    }
-    return false;
+    return this.reservas.some(
+      (reserva) => fechaInicio < reserva.diaFin && fechaFin > reserva.diaInicio
+    );
   }
 
   agregarReserva(reserva) {

@@ -12,6 +12,7 @@ class Alojamiento {
     this.precioPorNoche = precioPorNoche;
     this.categoria = categoria;
     this.reservas = [];
+    this.caracteristicas = [];
   }
 
   getDescripcion() {
@@ -19,13 +20,17 @@ class Alojamiento {
   }
 
   tieneConflictoConFechas(fechaInicio, fechaFin) {
-    return this.reservas.some(reserva => {
-      return fechaInicio < reserva.diaFin && fechaFin > reserva.diaInicio;
-    });
+    return this.reservas.some(
+      (reserva) => fechaInicio < reserva.diaFin && fechaFin > reserva.diaInicio
+    );
   }
 
   agregarReserva(reserva) {
     this.reservas.push(reserva);
+  }
+
+  agregarCaracteristica(caracteristica) {
+    this.caracteristicas.push(caracteristica);
   }
 }
 

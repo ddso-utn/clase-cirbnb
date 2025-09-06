@@ -9,7 +9,13 @@ Este repositorio contiene los materiales y ejemplos trabajados en clase.
   - **Services**  
   - **Repositories**  
 
-## ⚙️ Configuración de variables de entorno
+## ⚙️ Correr el server
+Para correr el server:  
+1. Entrar en la carpeta server `cd .\server\`
+2. Instlar dependencias `npm i`.  
+3. Levantar la app `node .\index`  
+
+## Configuración de variables de entorno
 Para usar las variables de entorno:  
 1. Copiar el archivo `.env.example`.  
 2. Renombrarlo como `.env`.  

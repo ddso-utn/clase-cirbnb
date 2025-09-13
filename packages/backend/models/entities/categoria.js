@@ -1,4 +1,4 @@
-const Categoria = Object.freeze({
+export const Categoria = Object.freeze({
   Hotel: "Hotel",
   Departamento: "Departamento",
   Cabana: "Cabana",

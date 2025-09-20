@@ -4,7 +4,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "node --watch index.js"
+    "dev": "node --watch index.js",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "test:unit": "NODE_OPTIONS=--experimental-vm-modules jest --testPathPatterns=unit",
+    "test:integration": "NODE_OPTIONS=--experimental-vm-modules jest --testPathPatterns=integration"
   },
   "keywords": [],
   "author": "",
@@ -14,7 +17,12 @@
     "cors": "^2.8.5",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
+    "swagger-ui-express": "^5.0.1",
     "zod": "^4.1.8"
   },
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "jest": "^30.1.3",
+    "supertest": "^7.1.4"
+  }
 }

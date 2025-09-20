@@ -21,6 +21,15 @@ export default defineConfig([
     },
   },
   {
+    files: ["packages/backend/test/**/*.{js,mjs,cjs,jsx}"],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        ...globals.jest,
+      },
+    },
+  },
+  {
     files: ["packages/frontend/src/**/*.{js,jsx,mjs,cjs}"],
     ...pluginReact.configs.flat.recommended,
     settings: { react: { version: "detect" } },

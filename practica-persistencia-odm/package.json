@@ -1,0 +1,31 @@
+{
+  "name": "cirbnb",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "API Rest de Alojamientos",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch ./index.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "env": "^0.0.2",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.16.0",
+    "mongoose": "^8.14.2",
+    "qs": "^6.14.0",
+    "zod": "^3.24.4"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

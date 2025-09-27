@@ -26,7 +26,7 @@ Se encuentran las colecciones en postman_examples
 - POST, GET ALL: localhost:3000/alojamiento
 - GET ONE, PUT, DELETE: localhost:3000/alojamiento/{id}
 - POST, GET ALL: localhost:3000/reserva
-- GET W/FILTER: http://localhost:3000/reserva?nombreHuesped=nombre
+- GET W/FILTER: ocalhost:3000/reserva?nombreHuesped=nombre
 - GET ONE, PUT, DELETE localhost:3000/reserva/{id}
 
 ## Instalacion MongoDB

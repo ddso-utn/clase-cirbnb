@@ -30,8 +30,8 @@ Se encuentran las colecciones en postman_examples
 - GET ONE, PUT, DELETE localhost:3000/reserva/{id}
 
 ## Instalacion MongoDB
-Opcion 1 -> Documentación oficial: https://www.mongodb.com/docs/manual/installation/
-Opción 2 -> Docker: docker run -d \
+- Opcion 1 -> Documentación oficial: https://www.mongodb.com/docs/manual/installation
+- Opción 2 -> Docker: docker run -d \
             --name practica-persistencia-dds \
             -p 27017:27017 \
             -e MONGO_INITDB_ROOT_USERNAME=root \

@@ -6,7 +6,6 @@ export class AlojamientoController {
         this.alojamientoService = alojamientoService
     }
 
-    // Get all alojamientos
     async findAll(req, res, next) {
         try {
             const alojamientos = await this.alojamientoService.findAll();
@@ -16,7 +15,6 @@ export class AlojamientoController {
         }
     }
 
-    // Create a new alojamiento
     async create(req, res, next) {
         try {
             const alojamiento = await this.alojamientoService.create(req.body);
@@ -26,7 +24,6 @@ export class AlojamientoController {
         }
     }
 
-    // Get alojamiento by ID
     async findById(req, res, next) {
         try {
             const alojamiento = await this.alojamientoService.findById(req.params.id);
@@ -36,7 +33,6 @@ export class AlojamientoController {
         }
     }
 
-    // Update alojamiento by ID
     async update(req, res, next) {
         try {
             const alojamiento = await this.alojamientoService.update(req.params.id, req.body);
@@ -51,7 +47,6 @@ export class AlojamientoController {
         }
     }
 
-    // Delete alojamiento by ID
     // Recordar que siempre intamos hacer baja logica
     async delete(req, res, next) {
         try {

@@ -1,14 +1,12 @@
 import { z } from "zod"
 
 export class Alojamiento {
-  //-----------------editar en vivo 1
-  //#id
-  //#nombre
-  //#precioPorNoche
+  id
+  nombre
+  precioPorNoche
   //Aca definimos una relacion bidireccional, pero solo en objetos no lo hacemos persistente
-  //#reservas = [];
-  
   reservas = [];
+  
 
   constructor(nombre, precioPorNoche) {
     this.nombre = nombre;
@@ -16,7 +14,6 @@ export class Alojamiento {
   }
 
 
-  /*
   getDescripcion() {
     return `${this.nombre} (${this.categoria}) - ${this.precioPorNoche} por noche`;
   }
@@ -37,5 +34,5 @@ export class Alojamiento {
   }, 0);
   }
 
-  */
+
 }

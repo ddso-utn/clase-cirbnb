@@ -1,8 +1,5 @@
 import { ReservaModel } from "../../schemas/reservaSchema.js";
 
-
-//-----------------editar en vivo 6
-
 export class ReservaRepository {
     constructor() {
         this.model = ReservaModel;
@@ -13,13 +10,8 @@ export class ReservaRepository {
     }
 
 
-    //-----------------editar en vivo 8
-    async findAll(filtros = {}) {
-        const query = {};
-        if (filtros.nombreHuesped) {
-            query.nombreHuesped = filtros.nombreHuesped;
-        }
-        return await this.model.find(query).populate('alojamiento', 'nombre');
+    async findByFilters(filtros = {}) {
+        return await this.model.find(filtros).populate('alojamiento');
     }
 
     async findById(id) {

@@ -12,22 +12,6 @@ export class ReservaController {
         }
     }
 
-    //-----------------editar en vivo 10
-
-    async findAll(req, res, next) {
-        try {
-            // Permite filtrar por nombreHuesped: /reserva?nombreHuesped=Juan
-            const filtros = {};
-            if (req.query.nombreHuesped) {
-                filtros.nombreHuesped = req.query.nombreHuesped;
-            }
-            const reservas = await this.reservaService.findAll(filtros);
-            res.json(reservas);
-        } catch (error) {
-            next(error);
-        }
-    }
-
 
     async create(req, res, next) {
         try {
@@ -60,6 +44,21 @@ export class ReservaController {
         try {
             const reserva = await this.reservaService.delete(req.params.id);
             res.json({ message: "Reserva eliminada" });
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    //Otra version con filtros
+    async findAllWithFilters(req, res, next) {
+        try {
+            // Permite filtrar por nombreHuesped: /reserva?nombreHuesped=Juan
+            const filtros = {};
+            if (req.query.nombreHuesped) {
+                filtros.nombreHuesped = req.query.nombreHuesped;
+            }
+            const reservas = await this.reservaService.filtroEjemplo(filtros);
+            res.json(reservas);
         } catch (error) {
             next(error);
         }

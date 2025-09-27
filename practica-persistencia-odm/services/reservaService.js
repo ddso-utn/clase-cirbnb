@@ -20,9 +20,9 @@ export class ReservaService {
         return reservas.map(r => this.toDTO(r));
     }
 
-    //-----------------editar en vivo 9
-    async findAll(filtros = {}) {
-        const reservas = await this.reservaRepository.findAll(filtros);
+
+    async filtroEjemplo(filtros = {}){
+        const reservas = await this.reservaRepository.findByFilters(filtros);
         return reservas.map(r => this.toDTO(r));
     }
 
@@ -42,7 +42,10 @@ export class ReservaService {
         if (!reserva) {
             throw new NotFoundError("Reserva no encontrada");
         }
-        //retotrnar la catida de ncohes para ver lo de obj...
+
+        reserva.cantidadNoches(); //Prueba del metodo cantidadNoches porque aca ya tenemos nuestro objeto JS automaticamente.
+
+
         return this.toDTO(reserva);
     }
 

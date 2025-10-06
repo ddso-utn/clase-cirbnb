@@ -1,0 +1,38 @@
+.accommodation-search-bar{
+    width: 45rem;
+    background-color: var(--primary-white);
+}
+
+.accommodation-search{
+    width: 35rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.25rem solid var(--primary-yellow);
+    border-radius: 5px;
+    background-color: var(--primary-white);
+}
+
+.search-bar-icon{
+    margin: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.search-bar-acc-input{
+    border: none;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: transparent; /* opcional, si querés eliminar también el borde */
+}
+
+.search-bar-button{
+    background-color: var(--primary-blue);
+    color: var(--primary-white);
+    height: 100%;
+    padding: 0 1rem;
+    border-radius: 5px;
+}

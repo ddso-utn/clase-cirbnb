@@ -22,6 +22,8 @@
 .carousel-track {
   display: flex;
   transition: transform 0.5s ease-in-out;
+  width: 100%;
+  flex-wrap: nowrap;
 }
 
 .carousel-card {
@@ -32,6 +34,7 @@
 }
 
 .hotel-card {
+  
   background-color: white;
   border-radius: 1rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);

@@ -4,7 +4,7 @@ import { hoteles } from "../../mockdata/Hoteles";
 
 export default function HotelCarousel() {
   const [index, setIndex] = useState(0);
-  const visible = 4;
+  const visible = 3;
 
   const siguiente = () => {
     if (index < hoteles.length - visible) setIndex(index + 1);
@@ -26,13 +26,10 @@ export default function HotelCarousel() {
 
       <div className="carousel-wrapper">
         <div className="carousel-viewport">
-          <div
-            className="carousel-track"
-            style={{
+          <div className="carousel-track"
+          style={{
               transform: `translateX(-${index * (100 / visible)}%)`,
-              width: `${(hoteles.length * 100) / visible}%`,
-            }}
-          >
+            }}>
             {hoteles.map((hotel) => (
               <div key={hotel.id} className="carousel-card">
                 <div className="hotel-card">
@@ -47,7 +44,7 @@ export default function HotelCarousel() {
                     <div className="hotel-details">
                       <span className="hotel-score">{hotel.puntaje}</span>
                       <span className="hotel-price">
-                        ${hotel.precio.toLocaleString("es-AR")} / noche
+                       desde: ${hotel.precio.toLocaleString("es-AR")} / noche
                       </span>
                     </div>
                   </div>

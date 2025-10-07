@@ -1,0 +1,120 @@
+.carousel-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.carousel-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+.carousel-wrapper {
+  position: relative;
+}
+
+.carousel-viewport {
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-card {
+  width: 33.3333%;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.hotel-card {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.hotel-card:hover {
+  transform: translateY(-4px);
+}
+
+.hotel-image {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+}
+
+.hotel-info {
+  padding: 1rem;
+}
+
+.hotel-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.hotel-location {
+  font-size: 0.9rem;
+  color: #777;
+  margin-top: 0.25rem;
+}
+
+.hotel-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.75rem;
+}
+
+.hotel-score {
+  background-color: #1e40af;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.hotel-price {
+  font-weight: 600;
+  color: #111;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: white;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.carousel-btn:hover {
+  background-color: #f3f3f3;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-btn.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.left-btn {
+  left: 8px;
+}
+
+.right-btn {
+  right: 8px;
+}

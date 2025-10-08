@@ -1,7 +1,8 @@
 .navbar-bg{
     background-color: var(--primary-blue);
     font-size: 1.5rem;
-    height: 7rem;
+    height: 8rem;
+    padding: 1rem 1rem;
 }
 
 .navbar{

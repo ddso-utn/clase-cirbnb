@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./HotelCarousel.css";
 import { hoteles } from "../../mockdata/Hoteles";
+import CarouselItem from "../hotelItem/CarouselItem";
 
 export default function HotelCarousel() {
   const [index, setIndex] = useState(0);
@@ -19,8 +20,6 @@ export default function HotelCarousel() {
   }
 
   return (
-
-    
     <div className="carousel-container">
       <h2 className="carousel-title">Ofertas para el fin de semana</h2>
 
@@ -31,25 +30,7 @@ export default function HotelCarousel() {
               transform: `translateX(-${index * (100 / visible)}%)`,
             }}>
             {hoteles.map((hotel) => (
-              <div key={hotel.id} className="carousel-card">
-                <div className="hotel-card">
-                  <img
-                    src={hotel.imagen}
-                    alt={hotel.nombre}
-                    className="hotel-image"
-                  />
-                  <div className="hotel-info">
-                    <h3 className="hotel-name">{hotel.nombre}</h3>
-                    <p className="hotel-location">{hotel.provincia}</p>
-                    <div className="hotel-details">
-                      <span className="hotel-score">{hotel.puntaje}</span>
-                      <span className="hotel-price">
-                       desde: ${hotel.precio.toLocaleString("es-AR")} / noche
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <CarouselItem hotel={hotel}/>
             ))}
           </div>
         </div>

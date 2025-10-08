@@ -21,6 +21,7 @@
 
 .search-bar-acc-input{
     border: none;
+    width: 80%;
 }
 
 input[type="text"]:focus {

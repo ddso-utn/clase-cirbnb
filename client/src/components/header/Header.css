@@ -1,3 +1,5 @@
 .header{
     text-align: center;
+    color: var(--primary-blue);
+    background-color: var(--primary-yellow);
 }

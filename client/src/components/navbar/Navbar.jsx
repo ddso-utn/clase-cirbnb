@@ -1,5 +1,7 @@
+import { Link } from 'react-router';
 import './Navbar.css';
 import {FaShoppingCart} from 'react-icons/fa'
+import '../../index.css'
 
 const Navbar = () => {
   return (
@@ -11,7 +13,7 @@ const Navbar = () => {
 
         <div className="navbar-section center">
           <div className="brand">
-            <h1 className="brand-text"> Cirbnb.com </h1>
+            <Link to={`/`} className="link-no-style"><h1 className="brand-text"> Cirbnb.com </h1></Link>
           </div>
         </div>
 

@@ -47,7 +47,17 @@
 }
 
 .hotel-score {
-  background-color: #1e40af;
+  background-color: var(--primary-purple);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.ver-detalles {
+  margin-top: 2px;
+  background-color:  var(--primary-purple);;
   color: white;
   font-size: 0.9rem;
   font-weight: bold;
@@ -58,4 +68,9 @@
 .hotel-price {
   font-weight: 600;
   color: #111;
+}
+
+.ver-detalles-container{
+  display: flex;
+  justify-content: right;
 }

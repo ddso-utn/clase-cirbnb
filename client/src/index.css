@@ -11,9 +11,10 @@ code {
 }
 
 :root {
-  --primary-blue: rgb(0, 67, 160);
+  --primary-purple: rgb(36, 4, 78);
+  --secondary-purple: rgb(115, 71, 172);
   --primary-white: rgb(250, 250, 250);
-  --primary-yellow: rgb(254,186,2);
+  --primary-orange: rgb(254, 31, 2);
   --primary-gray: rgb(36, 36, 36);
 }
 
@@ -33,4 +34,18 @@ button {
 html, body, #root {
   height: 100%;
   width: 100%;
+}
+
+.link-no-style {
+  all: unset;
+  cursor: pointer;
+  display: inline;
+}
+
+.link-no-style:hover,
+.link-no-style:focus,
+.link-no-style:active,
+.link-no-style:visited {
+  all: unset;
+  cursor: pointer;
 }

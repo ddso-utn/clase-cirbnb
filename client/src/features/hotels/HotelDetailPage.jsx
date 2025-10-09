@@ -4,10 +4,7 @@ import "./HotelDetailPage.css"
 
 const HotelDetailPage = () => {
   const { id } = useParams();
-  console.log(id);
-  console.log(hoteles);
   const hotel = hoteles.find(h => h.id === parseInt(id));
-  console.log(hotel);
 
   if (!hotel) {
     return (

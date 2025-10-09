@@ -88,6 +88,7 @@ body {
   color: #333;
   margin-bottom: 16px;
   font-weight: 500;
+  width: 90%;
 }
 
 .hotel-price-section {
@@ -134,24 +135,29 @@ body {
   margin-bottom: 2px;
 }
 
-.rating-comments {
-  font-size: 11px;
-  color: #666;
-  margin-bottom: 8px;
-}
-
-.rating-highlight {
-  font-size: 11px;
-  color: #666;
-  font-style: italic;
-}
-
 .points-section {
   padding: 16px 24px;
   background-color: #f8f9fa;
   border-top: 1px solid #f0f0f0;
   font-size: 13px;
   color: #666;
+}
+
+.reservar{
+  background-color: var(--primary-purple);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  min-width: 50px;
+  margin-right: 1rem;
+}
+
+.reservar-container{
+  display: flex;
+  justify-content: right;
 }
 
 @media (max-width: 768px) {

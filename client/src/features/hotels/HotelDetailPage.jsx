@@ -35,7 +35,7 @@ const HotelDetailPage = () => {
 
         <div className="hotel-info-section">
           <div className="hotel-description">
-            Desayuno buffet
+            {hotel.descripcion}
           </div>
 
           <div className="hotel-price-section">
@@ -46,14 +46,16 @@ const HotelDetailPage = () => {
           <div className="hotel-rating-section">
             <div className="hotel-puntaje">{hotel.puntaje}</div>
             <div className="rating-text">Excelente</div>
-            <div className="rating-comments">Ver comentarios</div>
-            <div className="rating-highlight">Otras personas destacaron: La ubicación</div>
           </div>
         </div>
       </div>
 
       <div className="points-section">
         Con esta reserva sumás puntos
+      </div>
+      
+      <div className="reservar-container">
+        <button className="reservar">Reservar</button>
       </div>
     </div>
   );

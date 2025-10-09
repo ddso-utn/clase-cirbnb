@@ -30,7 +30,7 @@ export default function HotelCarousel() {
               transform: `translateX(-${index * (100 / visible)}%)`,
             }}>
             {hoteles.map((hotel) => (
-              <CarouselItem hotel={hotel}/>
+              <CarouselItem hotel={hotel} key={hotel.id}/> 
             ))}
           </div>
         </div>

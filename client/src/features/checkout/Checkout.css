@@ -1,0 +1,10 @@
+form{
+    max-width: 80%;
+}
+
+.MuiPaper-root{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

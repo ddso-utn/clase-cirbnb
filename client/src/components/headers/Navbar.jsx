@@ -1,14 +1,19 @@
 import { Link } from 'react-router';
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import './Navbar.css';
 import {FaShoppingCart} from 'react-icons/fa'
 import '../../index.css'
 
 const Navbar = ({carrito}) => {
+  const navigate = useNavigate()
   const [cantHabitaciones, setCantHabitaciones] = useState(0);
 
+  const irAChekout = () => {
+    navigate("/checkout")
+  }
+
   const cantHabitacionesEnCarrito = () => {
-    console.log(carrito)
     let suma = 0
     for (const hotel of carrito) {
       suma += hotel.cantidadHabitaciones
@@ -34,7 +39,7 @@ const Navbar = ({carrito}) => {
         </div>
 
         <div className="navbar-section right">
-          <button className="cart">
+          <button className="cart" onClick={irAChekout}>
             <FaShoppingCart color="white"/>
             <span className="cart-count">{cantHabitaciones}</span>
           </button>

@@ -1,88 +1,126 @@
-import React from 'react'
-import { useState } from 'react';
-import {Button, Card, TextField} from "@mui/material";
+import React, { useState } from 'react';
+import { Card, TextField, Button } from '@mui/material';
+import './Checkout.css';
 
-const Checkout = () => {
-    const inicializarCampo = (requerido = true) => ({
-        valor: "",
-        requerido,
-    })
+const Checkout = ({ carrito, limpiarCarrito }) => {
+  const inicializarCampo = (requerido = true) => ({ valor: '', requerido });
+  
+  const inicializarCampos = () => ({
+    nombre: inicializarCampo(),
+    segundoNombre: inicializarCampo(false),
+    apellido: inicializarCampo(),
+    email: inicializarCampo(),
+    repetirEmail: inicializarCampo(),
+    fechaEntrada: inicializarCampo(),
+    fechaSalida: inicializarCampo()
+  });
 
-    const inicializarCampos = () => ({
-        nombre: inicializarCampo(),
-        segundoNombre: inicializarCampo(false),
-        apellido: inicializarCampo(),
-        email: inicializarCampo(),
-        repetirEmail: inicializarCampo()
-    })
-    
-    const [campos, setCampos] = useState(inicializarCampos())
+  const [campos, setCampos] = useState(inicializarCampos());
 
-    const camposCompletos = Object.values(campos).every(campo =>
-        !campo.requerido || campo.valor.length
-    )
+  const camposCompletos = Object.values(campos)
+    .filter(campo => campo.requerido)
+    .every(campo => campo.valor.trim() !== '');
 
-    const valorDe = (nombreCampo) => campos[nombreCampo].valor
+  const setValorDe = (campo) => (event) => {
+    setCampos(prev => ({
+      ...prev,
+      [campo]: { ...prev[campo], valor: event.target.value }
+    }));
+  };
 
-    const setValorDe = (nombreCampo) => (e) => {
-        const nuevoValor = e.target.value
-        setCampos({
-        ...campos,
-        [nombreCampo]: {
-            ...campos[nombreCampo],
-            valor: nuevoValor
-        }
-        })
-    }
+  const handleGuardar = () => {
+    alert('Reserva guardada exitosamente');
+    limpiarCarrito();
+  };
 
-    return (
-        <div className="root">
-        <Card className="form-container">
-            <h1>Ya casi estamos...</h1>
-            <form onSubmit={(e) => e.preventDefault()}>
-            <TextField
-                value={valorDe('nombre')}
-                onChange={setValorDe('nombre')}
-                fullWidth
-                variant="standard"
-                label="Nombre"
-            />
-            <TextField
-                value={valorDe('segundoNombre')}
-                onChange={setValorDe('segundoNombre')}
-                fullWidth
-                variant="standard"
-                label="Segundo nombre"
-            />
-            <TextField
-                value={valorDe('apellido')}
-                onChange={setValorDe('apellido')}
-                fullWidth
-                variant="standard"
-                label="Apellido"
-            />
-            <TextField
-                value={valorDe('email')}
-                onChange={setValorDe('email')}
-                fullWidth
-                variant="standard"
-                label="Email"
-            />
-            <TextField
-                value={valorDe('repetirEmail')}
-                onChange={setValorDe('repetirEmail')}
-                fullWidth
-                variant="standard"
-                label="Repetir Email"
-            />
-            <div className="actions">
-                <Button variant="outlined" onClick={() =>{}}>Cancelar</Button>
-                <Button disabled={!camposCompletos} variant="contained" onClick={() =>{}}>Guardar</Button>
+  return (
+    <div className="root">
+      <Card className="form-container">
+        <h3>Ya casi estamos...</h3>
+        <div>
+          {carrito.map((hotel, index) => (
+            <div key={index}>
+              {hotel.nombre}: {hotel.cantidadHabitaciones}
             </div>
-            </form>
-        </Card>
+          ))}
         </div>
-    )
-}
+        
+        <form>
+          <TextField
+            label="Nombre"
+            required
+            fullWidth
+            margin="normal"
+            value={campos.nombre.valor}
+            onChange={setValorDe('nombre')}
+          />
+          <TextField
+            label="Segundo nombre"
+            fullWidth
+            margin="normal"
+            value={campos.segundoNombre.valor}
+            onChange={setValorDe('segundoNombre')}
+          />
+          <TextField
+            label="Apellido"
+            required
+            fullWidth
+            margin="normal"
+            value={campos.apellido.valor}
+            onChange={setValorDe('apellido')}
+          />
+          <TextField
+            label="Email"
+            required
+            fullWidth
+            margin="normal"
+            type="email"
+            value={campos.email.valor}
+            onChange={setValorDe('email')}
+          />
+          <TextField
+            label="Repetir Email"
+            required
+            fullWidth
+            margin="normal"
+            type="email"
+            value={campos.repetirEmail.valor}
+            onChange={setValorDe('repetirEmail')}
+          />
+          <TextField
+            label="Fecha de entrada"
+            required
+            fullWidth
+            margin="normal"
+            type="date"
+            InputLabelProps={{ shrink: true }}
+            value={campos.fechaEntrada.valor}
+            onChange={setValorDe('fechaEntrada')}
+          />
+          <TextField
+            label="Fecha de salida"
+            required
+            fullWidth
+            margin="normal"
+            type="date"
+            InputLabelProps={{ shrink: true }}
+            value={campos.fechaSalida.valor}
+            onChange={setValorDe('fechaSalida')}
+          />
+          <div className="actions">
+            <Button onClick={() => {}}>Cancelar</Button>
+            <Button 
+              variant="contained" 
+              disabled={!camposCompletos}
+              onClick={handleGuardar}
+            >
+              Guardar
+            </Button>
+          </div>
+        </form>
+      </Card>
+    </div>
+  );
+};
 
-export default Checkout
+export default Checkout;

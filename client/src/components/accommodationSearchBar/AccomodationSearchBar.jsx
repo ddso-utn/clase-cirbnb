@@ -6,7 +6,6 @@ import {useState} from "react";
 
 const AccomodationSearchBar = ({filtrarHoteles}) => {
   const [searchText, setSearchText] = useState("");
-  const [products, setProducts] = useState([]);
 
   return (
     <div className="accommodation-search">

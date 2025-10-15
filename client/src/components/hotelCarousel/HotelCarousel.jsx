@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import "./HotelCarousel.css";
-import { hoteles } from "../../mockdata/Hoteles";
 import CarouselItem from "../hotelItem/CarouselItem";
 
-export default function HotelCarousel() {
+export default function HotelCarousel({hoteles}) {
+
+  useEffect(() => {
+    setIndex(0);
+  }, [hoteles]);
+
   const [index, setIndex] = useState(0);
   const visible = 3;
 

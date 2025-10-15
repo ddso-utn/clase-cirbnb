@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { Card, TextField, Button } from '@mui/material';
+import { useNavigate } from "react-router-dom";
+
 import './Checkout.css';
 
 const Checkout = ({ carrito, limpiarCarrito }) => {
   const inicializarCampo = (requerido = true) => ({ valor: '', requerido });
-  
+  const navigate = useNavigate()
+
   const inicializarCampos = () => ({
     nombre: inicializarCampo(),
     segundoNombre: inicializarCampo(false),
@@ -31,6 +34,7 @@ const Checkout = ({ carrito, limpiarCarrito }) => {
   const handleGuardar = () => {
     alert('Reserva guardada exitosamente');
     limpiarCarrito();
+    navigate("/")
   };
 
   return (

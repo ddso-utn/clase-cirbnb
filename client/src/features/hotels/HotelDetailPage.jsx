@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { hoteles } from '../../mockdata/Hoteles';
 import React, { useState, useEffect } from 'react';
-import { useNavigate, navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ButtonGroup, Button } from '@mui/material';
 import "./HotelDetailPage.css"
 

@@ -1,10 +1,46 @@
 import { useParams } from "react-router-dom";
 import { hoteles } from '../../mockdata/Hoteles';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, navigate } from "react-router-dom";
+import { ButtonGroup, Button } from '@mui/material';
 import "./HotelDetailPage.css"
 
-const HotelDetailPage = () => {
+const conHabitaciones = (cantidadHabitaciones, hotel) => ({...hotel, cantidadHabitaciones})
+const HotelDetailPage = ({ carrito, actualizarCarrito }) => {
+  const navigate = useNavigate()
   const { id } = useParams();
+  
+  // Acá lo busco en el front, pero debería pedirlo en el back
   const hotel = hoteles.find(h => h.id === parseInt(id));
+
+
+  const [habitaciones, setHabitaciones] = useState(0);
+
+  useEffect(() => {
+    // Si hay un hotel en el carrito y es el mismo hotel, cargar las habitaciones
+    if (carrito.hotel && carrito.hotel.id === parseInt(id)) {
+      setHabitaciones(carrito.habitaciones);
+    } else {
+      setHabitaciones(0);
+    }
+  }, [id, carrito]);
+  
+  const incrementarHabitaciones = () => {
+    const nuevasHabitaciones = habitaciones + 1;
+    setHabitaciones(nuevasHabitaciones);
+  };
+  
+  const decrementarHabitaciones = () => {
+    if (habitaciones > 0) {
+      const nuevasHabitaciones = habitaciones - 1;
+      setHabitaciones(nuevasHabitaciones);
+    }
+  };
+
+  const reservar = () => {
+    actualizarCarrito(conHabitaciones(habitaciones, hotel))  
+    navigate("/")
+  }
 
   if (!hotel) {
     return (
@@ -55,7 +91,12 @@ const HotelDetailPage = () => {
       </div>
       
       <div className="reservar-container">
-        <button className="reservar">Reservar</button>
+        <ButtonGroup variant="outlined" aria-label="outlined button group">
+          <Button onClick={decrementarHabitaciones} disabled={habitaciones === 0}>-</Button>
+          <Button disabled>{habitaciones}</Button>
+          <Button onClick={incrementarHabitaciones}>+</Button>
+        </ButtonGroup>
+        <button className="reservar" onClick={reservar}>Reservar</button>
       </div>
     </div>
   );

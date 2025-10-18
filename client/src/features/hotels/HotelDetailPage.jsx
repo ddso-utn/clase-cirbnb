@@ -17,12 +17,7 @@ const HotelDetailPage = ({ carrito, actualizarCarrito }) => {
   const [habitaciones, setHabitaciones] = useState(0);
 
   useEffect(() => {
-    // Si hay un hotel en el carrito y es el mismo hotel, cargar las habitaciones
-    if (carrito.hotel && carrito.hotel.id === parseInt(id)) {
-      setHabitaciones(carrito.habitaciones);
-    } else {
-      setHabitaciones(0);
-    }
+    setHabitaciones(0);
   }, [id, carrito]);
   
   const incrementarHabitaciones = () => {

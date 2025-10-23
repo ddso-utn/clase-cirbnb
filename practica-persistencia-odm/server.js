@@ -1,5 +1,7 @@
 import express from "express";
 import { errorHandler } from "./middlewares/errorHandler.js";
+import cors from "cors";
+
 
 // El server recibe las rutas y recibe el puerto 
 export class Server {
@@ -12,6 +14,11 @@ export class Server {
     this.port = port
     this.#routes = []
     this.#app.use(express.json()) 
+    this.#app.use(cors({
+    origin: 'http://localhost:3001', // frontend React
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+}));
   }
 
   get app() {

@@ -1,6 +1,6 @@
 import AccomodationSearchBar from "../../components/accommodationSearchBar/AccomodationSearchBar";
 import HotelCarousel from "../../components/hotelCarousel/HotelCarousel";
-import { getHotelsSlowly } from "../../service/hotelsService.js";
+import { getHotelsSlowly, getHotels } from "../../api/api.js";
 import {Spinner} from "react-bootstrap";
 import React, {useState, useEffect} from "react";
 import './Home.css'
@@ -22,9 +22,10 @@ const Home = () => {
     }
 
     const cargarHoteles = async () => {
-      const hotelesCargados = await getHotelsSlowly();
-      setHoteles(hotelesCargados)
-      setHotelesFiltrados(hotelesCargados)
+      const hotelesCargados = await getHotels();
+      console.log("Hoteles cargados:", hotelesCargados);
+      setHoteles(hotelesCargados.data)
+      setHotelesFiltrados(hotelesCargados.data)
     }
 
     // Para que cuando se monte el componente los cargue

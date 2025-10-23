@@ -35,7 +35,7 @@ export class AlojamientoRepository {
         };
     }
 
-    /*
+    
     //Si queremos cargar la bireccionalidad 
     async findById(id) {
         const alojamientoSchema = await this.model.find();
@@ -46,8 +46,8 @@ export class AlojamientoRepository {
                 //...
             }
         return await this.model.findById(id);
+        }   
     }
-    */
 
     async findByName(nombre) {
         return await this.model.findOne({ nombre });

@@ -5,7 +5,11 @@ const API_BASE_URL = process.env.REACT_APP_API_URL
 
 export const getHotels = async () => {
   try{
-    const response = await axios.get(`${API_BASE_URL}/alojamiento`);
+    const response = await axios.get(`${API_BASE_URL}/alojamiento`, {
+  headers: {
+    'Cache-Control': 'no-cache'
+  }
+});
     return response.data;
   } catch (error) {
     console.error("Error obteniendo los hoteles", error);

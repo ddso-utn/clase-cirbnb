@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { ButtonGroup, Button } from '@mui/material';
 import "./HotelDetailPage.css"
+import { getHotelById } from "../../api/api.js";
 
 const conHabitaciones = (cantidadHabitaciones, hotel) => ({...hotel, cantidadHabitaciones})
 const HotelDetailPage = ({ carrito, actualizarCarrito }) => {
@@ -11,8 +12,16 @@ const HotelDetailPage = ({ carrito, actualizarCarrito }) => {
   const { id } = useParams();
   
   // Acá lo busco en el front, pero debería pedirlo en el back
-  const hotel = hoteles.find(h => h.id === parseInt(id));
+  //const hotel = hoteles.find(h => h.id === parseInt(id));
 
+  const [hotel, setHotel] = useState(null);
+  useEffect(() => {
+    const cargarHotel = async () => {
+        const data = await getHotelById(id); // llamada al backend
+        setHotel(data);
+    };
+    cargarHotel();
+  }, [id]);
 
   const [habitaciones, setHabitaciones] = useState(0);
 

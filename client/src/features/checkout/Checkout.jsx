@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Card, TextField, Button } from '@mui/material';
 import { useNavigate } from "react-router-dom";
+import { crearReserva } from '../../api/api.js';
 
 import './Checkout.css';
 
@@ -31,10 +32,26 @@ const Checkout = ({ carrito, limpiarCarrito }) => {
     }));
   };
 
-  const handleGuardar = () => {
-    alert('Reserva guardada exitosamente');
+  const handleGuardar = async () => {
+
+    const nombreCompleto = `${campos.nombre.valor} ${campos.segundoNombre.valor} ${campos.apellido.valor}`.trim();
+  try {
+     for (const hotel of carrito) {
+      await crearReserva(
+        hotel.id,
+        nombreCompleto,
+        campos.fechaEntrada.valor,
+        campos.fechaSalida.valor
+      );
+    }
+
+    alert('Reserva(s) guardada(s) exitosamente');
     limpiarCarrito();
-    navigate("/")
+    navigate("/");
+  } catch (error) {
+    console.error('Error al crear la reserva:', error);
+    alert('Hubo un error al guardar la reserva. Intenta nuevamente.');
+  }
   };
 
   return (

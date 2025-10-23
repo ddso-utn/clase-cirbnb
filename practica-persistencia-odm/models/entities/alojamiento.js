@@ -3,19 +3,22 @@ import { z } from "zod"
 export class Alojamiento {
   id
   nombre
-  precioPorNoche
+  descripcion
+  ubicacion
+  puntaje
+  precio
+  imagen
   //Aca definimos una relacion bidireccional, pero solo en objetos no lo hacemos persistente
   reservas = [];
-  
 
-  constructor(nombre, precioPorNoche) {
+
+  constructor(nombre, descripcion, ubicacion, puntaje, precio, imagen) {
     this.nombre = nombre;
-    this.precioPorNoche = precioPorNoche;    
-  }
-
-
-  getDescripcion() {
-    return `${this.nombre} (${this.categoria}) - ${this.precioPorNoche} por noche`;
+    this.descripcion = descripcion;
+    this.ubicacion = ubicacion;
+    this.puntaje = puntaje;
+    this.precio = precio;
+    this.imagen = imagen;
   }
 
   tieneConflictoConFechas(fechaInicio, fechaFin) {

@@ -13,6 +13,28 @@ export class AlojamientoRepository {
         return await this.model.find();
     }
 
+    async findPaginated(page = 1, limit = 10, filters = {}) {
+        const skip = (page - 1) * limit;
+        const query = {};
+
+        // Apply maxPrice filter if provided
+        if (filters.maxPrice !== undefined) {
+            query.precio = { $lt: filters.maxPrice };
+        }
+
+        const [data, total] = await Promise.all([
+            this.model.find(query).skip(skip).limit(limit),
+            this.model.countDocuments(query)
+        ]);
+
+        return {
+            data,
+            total,
+            page,
+            limit
+        };
+    }
+
     /*
     //Si queremos cargar la bireccionalidad 
     async findById(id) {
@@ -52,11 +74,11 @@ export class AlojamientoRepository {
     //Para filtrar resultados según condiciones numéricas.
     //Por ejemplo, mostrar solo alojamientos más caros que un precio dado.
     async findByMinPrice(minPrice) {
-        return await this.model.find({ precioPorNoche: { $gt: minPrice } });
+        return await this.model.find({ precio: { $gt: minPrice } });
     }
     async findByPriceRange(min, max) {
     return await this.model.find({
-        precioPorNoche: { $gt: min, $lt: max }
+        precio: { $gt: min, $lt: max }
     });
 
     }

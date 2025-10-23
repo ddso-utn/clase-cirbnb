@@ -7,10 +7,30 @@ const alojamientoSchema = new mongoose.Schema({
         required: true,
         trim:true
     },
-    precioPorNoche:{
+    descripcion:{
+        type: String,
+        required: true,
+        trim: true
+    },
+    ubicacion:{
+        type: String,
+        required: true,
+        trim: true
+    },
+    puntaje:{
+        type: Number,
+        required: true,
+        min: 0,
+        max: 10
+    },
+    precio:{
         type: Number,
         required: true,
         min: 0
+    },
+    imagen:{
+        type: String,
+        required: true
     }
 },{
     timestamps: true,

@@ -1,0 +1,158 @@
+{
+	"info": {
+		"_postman_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+		"name": "Notificaciones - PRACTICA ODM Y PERSISTENCIA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21228147"
+	},
+	"item": [
+		{
+			"name": "GET NOTIFICACIONES NO LEIDAS",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/notificacion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"notificacion"
+					]
+				},
+				"description": "Obtiene todas las notificaciones NO_LEIDA. Después de obtenerlas, automáticamente las marca como LEIDA en la base de datos. El endpoint devuelve las notificaciones con su estado original (NO_LEIDA)."
+			},
+			"response": []
+		},
+		{
+			"name": "POST NOTIFICACION",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"titulo\": \"Bienvenido a CirBnB\",\n  \"mensaje\": \"Gracias por registrarte en nuestra plataforma. Esperamos que disfrutes de tu experiencia buscando alojamientos.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/notificacion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"notificacion"
+					]
+				},
+				"description": "Crea una nueva notificación. El estado se establece automáticamente como NO_LEIDA. Validaciones: título (min 3, max 50 caracteres), mensaje (min 3, max 500 caracteres)."
+			},
+			"response": []
+		},
+		{
+			"name": "POST NOTIFICACION - Validacion Error Titulo Corto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"titulo\": \"Ok\",\n  \"mensaje\": \"Este título es demasiado corto y debería fallar la validación.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/notificacion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"notificacion"
+					]
+				},
+				"description": "Ejemplo de validación fallida: título con menos de 3 caracteres. Debería devolver error 400."
+			},
+			"response": []
+		},
+		{
+			"name": "POST NOTIFICACION - Validacion Error Titulo Largo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"titulo\": \"Este es un título extremadamente largo que definitivamente supera los cincuenta caracteres permitidos\",\n  \"mensaje\": \"Este mensaje es válido y tiene la longitud correcta.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/notificacion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"notificacion"
+					]
+				},
+				"description": "Ejemplo de validación fallida: título con más de 50 caracteres. Debería devolver error 400."
+			},
+			"response": []
+		},
+		{
+			"name": "POST NOTIFICACION - Validacion Error Mensaje Corto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"titulo\": \"Título válido\",\n  \"mensaje\": \"No\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/notificacion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"notificacion"
+					]
+				},
+				"description": "Ejemplo de validación fallida: mensaje con menos de 3 caracteres. Debería devolver error 400."
+			},
+			"response": []
+		}
+	]
+}

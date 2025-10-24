@@ -11,6 +11,7 @@ const Home = () => {
     const [hotelesFiltrados, setHotelesFiltrados] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPaginas, setTotalPaginas] = useState(1);
+    const [promocion, setPromocion] = useState(null);
   
     const filtrarHoteles = (searchText) => {
       if (searchText.trim() === "") {
@@ -33,9 +34,26 @@ const Home = () => {
       setTotalPaginas(hotelesCargados.totalPaginas);
     }
 
+     const verificarPromocion = async () => {
+    try {
+      const promo = await getPromocion();
+      if (promo && promo.descripcion) {
+        setPromocion(promo.descripcion);
+      }
+    } catch (error) {
+      console.error("Error obteniendo promoción:", error);
+    }
+  };
+
     // Para que cuando se monte el componente los cargue
     useEffect(() => {
-      cargarHoteles()
+      cargarHoteles();
+
+        // chequea el backend cada 30 segundos
+      const intervalo = setInterval(verificarPromocion, 30000);
+
+      // limpia el intervalo cuando el componente se desmonta
+      return () => clearInterval(intervalo);
     }, [])
 
     return (
@@ -56,6 +74,12 @@ const Home = () => {
               onPageChange={(page) => cargarHoteles(page)}
            />
           )}
+
+          {/* POPUP de promoción */}
+          <PromocionPopup
+            mensaje={promocion}
+            onClose={() => setPromocion(null)}
+          />
         </div>
         }
       </>

@@ -15,6 +15,10 @@ import { ReservaController } from "./controllers/reservaController.js"
 import { ReservaService } from "./services/reservaService.js"
 import { ReservaRepository } from "./models/repositories/reservaRepository.js"
 
+import NotificacionController from "./controllers/notificacionController.js"
+import NotificacionService from "./services/notificacionService.js"
+import NotificacionRepository from "./models/repositories/notificacionRepository.js"
+
 
 const app = express()
 app.use(express.json())
@@ -37,6 +41,12 @@ const reservaService = new ReservaService(reservaRepository)
 const reservaController = new ReservaController(reservaService)
 
 server.setController(ReservaController, reservaController)
+
+const notificacionRepository = new NotificacionRepository()
+const notificacionService = new NotificacionService(notificacionRepository)
+const notificacionController = new NotificacionController(notificacionService)
+
+server.setController(NotificacionController, notificacionController)
 
 routes.forEach(route => server.addRoute(route))
 server.configureRoutes();

@@ -252,20 +252,17 @@ paths:
                 $ref: '#/components/schemas/ErrorNotFound'
   /notificacion:
     get:
-      summary: Obtener notificaciones no leídas
+      summary: Obtener última notificación no leída
       description: |-
-        Retorna todas las notificaciones con estado NO_LEIDA.
-        Después de obtenerlas, automáticamente las marca como LEIDA en la base de datos.
-        El endpoint devuelve las notificaciones con su estado original (NO_LEIDA).
+        Retorna la última notificación con estado NO_LEIDA ordenada por fecha de creación (más reciente primero).
+        La notificación NO se marca como LEIDA.
       responses:
         '200':
-          description: Lista de notificaciones no leídas
+          description: Última notificación no leída
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Notificacion'
+                $ref: '#/components/schemas/Notificacion'
         '204':
           description: No hay notificaciones no leídas
     post:

@@ -3,15 +3,15 @@ class NotificacionController {
     this.notificacionService = notificacionService;
   }
 
-  async obtenerNotificacionesNoLeidas(req, res, next) {
+  async obtenerUltimaNotificacionNoLeida(req, res, next) {
     try {
-      const notificaciones = await this.notificacionService.obtenerNotificacionesNoLeidas();
+      const notificacion = await this.notificacionService.obtenerUltimaNotificacionNoLeida();
 
-      if (notificaciones.length === 0) {
+      if (!notificacion) {
         return res.status(204).send();
       }
 
-      return res.status(200).json(notificaciones);
+      return res.status(200).json(notificacion);
     } catch (error) {
       next(error);
     }

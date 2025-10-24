@@ -3,8 +3,8 @@ info:
   title: API de CirBnb
   version: 1.0.0
   description: |-
-    API para gestionar recursos de alojamientos y reservas.
-    Implementa operaciones CRUD completas para ambos recursos con validaciones y manejo de errores.
+    API para gestionar recursos de alojamientos, reservas y notificaciones.
+    Implementa operaciones CRUD completas para todos los recursos con validaciones y manejo de errores.
 paths:
   /reserva:
     get:
@@ -250,6 +250,46 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorNotFound'
+  /notificacion:
+    get:
+      summary: Obtener notificaciones no leídas
+      description: |-
+        Retorna todas las notificaciones con estado NO_LEIDA.
+        Después de obtenerlas, automáticamente las marca como LEIDA en la base de datos.
+        El endpoint devuelve las notificaciones con su estado original (NO_LEIDA).
+      responses:
+        '200':
+          description: Lista de notificaciones no leídas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notificacion'
+        '204':
+          description: No hay notificaciones no leídas
+    post:
+      summary: Crear una notificación
+      description: Crea una nueva notificación con estado NO_LEIDA por defecto.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificacionInput'
+      responses:
+        '201':
+          description: Notificación creada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notificacion'
+        '400':
+          description: Error de validación
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
 components:
   schemas:
     Alojamiento:
@@ -356,6 +396,45 @@ components:
           description: ID de MongoDB del alojamiento (opcional)
           example: 507f191e810c19729de860ea
       required: [diaInicio, diaFin, nombreHuesped]
+    Notificacion:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 507f1f77bcf86cd799439011
+          description: ID de MongoDB
+        titulo:
+          type: string
+          minLength: 3
+          maxLength: 50
+          example: Bienvenido a CirBnB
+        mensaje:
+          type: string
+          minLength: 3
+          maxLength: 500
+          example: Gracias por registrarte en nuestra plataforma. Esperamos que disfrutes de tu experiencia.
+        estado:
+          type: string
+          enum: [LEIDA, NO_LEIDA]
+          example: NO_LEIDA
+          description: Estado de la notificación (LEIDA o NO_LEIDA)
+      required: [id, titulo, mensaje, estado]
+    NotificacionInput:
+      type: object
+      properties:
+        titulo:
+          type: string
+          minLength: 3
+          maxLength: 50
+          example: Nueva reserva confirmada
+          description: Título de la notificación (min 3, max 50 caracteres)
+        mensaje:
+          type: string
+          minLength: 3
+          maxLength: 500
+          example: Tu reserva en Four Seasons Hotel ha sido confirmada para las fechas del 15 al 20 de enero.
+          description: Mensaje de la notificación (min 3, max 500 caracteres)
+      required: [titulo, mensaje]
     PaginatedAlojamientos:
       type: object
       properties:

@@ -42,6 +42,11 @@ export const crearReserva = async (idHotel, Nombre, FechaInicio, FechaFin) => {
   } 
 }
 
+export const getPromocion = async () => {
+  const response = await axios.get(`${API_BASE_URL}/notificacion`);
+  return response.data.mensaje;
+}
+
 
 export const getHotelsSlowly = () => new Promise((resolve) => {
   setTimeout(() => {

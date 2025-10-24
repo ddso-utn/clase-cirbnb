@@ -1,10 +1,11 @@
 import AccomodationSearchBar from "../../components/accommodationSearchBar/AccomodationSearchBar";
 import HotelCarousel from "../../components/hotelCarousel/HotelCarousel";
-import { getHotelsSlowly, getHotels } from "../../api/api.js";
+import { getHotelsSlowly, getHotels, getPromocion } from "../../api/api.js";
 import {Spinner} from "react-bootstrap";
 import React, {useState, useEffect} from "react";
 import './Home.css'
 import Paginacion from "../../components/paginacion/Paginacion";
+import PromocionPopup from "../../components/promocionPopup/PromocionPopup";
 
 const Home = () => {
     const [hoteles, setHoteles] = useState([]);

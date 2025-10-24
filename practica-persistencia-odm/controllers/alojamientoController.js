@@ -8,8 +8,21 @@ export class AlojamientoController {
 
     async findAll(req, res, next) {
         try {
-            const alojamientos = await this.alojamientoService.findAll();
-            res.json(alojamientos);
+            const { page, limit, maxPrice } = req.query;
+
+            const filters = {};
+            if (maxPrice !== undefined) {
+                filters.maxPrice = parseFloat(maxPrice);
+            }
+
+            const result = await this.alojamientoService.findAllPaginated(page, limit, filters);
+
+            // Return 204 if no alojamientos found
+            if (result.total === 0) {
+                return res.status(204).send();
+            }
+
+            res.json(result);
         } catch (error) {
             next(error);
         }

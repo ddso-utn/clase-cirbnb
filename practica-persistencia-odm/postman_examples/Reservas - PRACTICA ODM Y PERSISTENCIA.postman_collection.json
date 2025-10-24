@@ -170,7 +170,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"nombre\": \"Hotel Copilot\",\n  \"precioPorNoche\": 100,\n  \"categoria\": \"Premium\"\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -178,14 +178,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/reserva",
+					"raw": "http://localhost:3000/reserva/68d575b61796d46ef0bc80fa",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"reserva"
+						"reserva",
+						"68d575b61796d46ef0bc80fa"
 					]
 				}
 			},

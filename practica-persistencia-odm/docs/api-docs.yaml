@@ -1,0 +1,507 @@
+openapi: 3.1.1
+info:
+  title: API de CirBnb
+  version: 1.0.0
+  description: |-
+    API para gestionar recursos de alojamientos, reservas y notificaciones.
+    Implementa operaciones CRUD completas para todos los recursos con validaciones y manejo de errores.
+paths:
+  /reserva:
+    get:
+      summary: Listar todas las reservas
+      description: Retorna una lista de todas las reservas con sus alojamientos asociados (populate).
+      responses:
+        '200':
+          description: Lista de reservas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reserva'
+    post:
+      summary: Crear una reserva
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReservaInput'
+      responses:
+        '201':
+          description: Reserva creada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reserva'
+        '400':
+          description: Error de validación
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+  /reserva/{id}:
+    get:
+      summary: Obtener una reserva por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID de MongoDB de la reserva
+      responses:
+        '200':
+          description: Reserva encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reserva'
+        '404':
+          description: Reserva no existe
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+    put:
+      summary: Actualizar una reserva por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReservaInput'
+      responses:
+        '200':
+          description: Reserva actualizada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reserva'
+        '404':
+          description: No existe la reserva con ese ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+    delete:
+      summary: Eliminar una reserva por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Reserva eliminada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Reserva eliminada
+        '404':
+          description: No existe la reserva con ese ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+  /alojamientos:
+    get:
+      summary: Listar alojamientos paginados
+      description: Retorna una lista paginada de alojamientos. Permite filtrar por precio máximo (`maxPrice`).
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 1
+            default: 1
+          description: Número de página (1-indexado)
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 10
+          description: Cantidad de elementos por página
+        - in: query
+          name: maxPrice
+          schema:
+            type: number
+            minimum: 0
+          description: Filtra alojamientos con precio menor al valor dado
+      responses:
+        '200':
+          description: Lista paginada de alojamientos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAlojamientos'
+        '204':
+          description: No hay alojamientos
+    post:
+      summary: Crear un alojamiento
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlojamientoInput'
+      responses:
+        '201':
+          description: Alojamiento creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alojamiento'
+        '400':
+          description: Error de validación
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/ZodIssues'
+                  - $ref: '#/components/schemas/ErrorBadRequest'
+  /alojamientos/{id}:
+    get:
+      summary: Obtener un alojamiento por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID numérico del alojamiento
+      responses:
+        '200':
+          description: Alojamiento encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alojamiento'
+        '404':
+          description: Alojamiento no existe
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+        '500':
+          description: Error interno del servidor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternal'
+    delete:
+      summary: Eliminar un alojamiento por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Alojamiento eliminado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alojamiento'
+        '404':
+          description: No existe el alojamiento con ese ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+    put:
+      summary: Actualizar un alojamiento por ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AlojamientoInput'
+      responses:
+        '200':
+          description: Alojamiento actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alojamiento'
+        '404':
+          description: No existe el alojamiento con ese ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+  /notificacion:
+    get:
+      summary: Obtener última notificación no leída
+      description: |-
+        Retorna la última notificación con estado NO_LEIDA ordenada por fecha de creación (más reciente primero).
+        La notificación NO se marca como LEIDA.
+      responses:
+        '200':
+          description: Última notificación no leída
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notificacion'
+        '204':
+          description: No hay notificaciones no leídas
+    post:
+      summary: Crear una notificación
+      description: Crea una nueva notificación con estado NO_LEIDA por defecto.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificacionInput'
+      responses:
+        '201':
+          description: Notificación creada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notificacion'
+        '400':
+          description: Error de validación
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+components:
+  schemas:
+    Alojamiento:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nombre:
+          type: string
+          example: Four Seasons Hotel
+        descripcion:
+          type: string
+          example: Lujoso hotel de 5 estrellas ubicado en el corazón de Buenos Aires. Ofrece elegantes habitaciones con vistas a la ciudad, spa de clase mundial, restaurantes gourmet y servicio personalizado de primer nivel.
+        ubicacion:
+          type: string
+          example: Buenos Aires, Argentina
+        puntaje:
+          type: number
+          minimum: 0
+          maximum: 10
+          example: 9.2
+        precio:
+          type: number
+          minimum: 0
+          example: 1580000
+        imagen:
+          type: string
+          example: /images/fourseasonsbs.jpeg
+      required: [id, nombre, descripcion, ubicacion, puntaje, precio, imagen]
+    AlojamientoInput:
+      type: object
+      properties:
+        nombre:
+          type: string
+          minLength: 1
+          example: Four Seasons Hotel
+        descripcion:
+          type: string
+          minLength: 1
+          example: Lujoso hotel de 5 estrellas ubicado en el corazón de Buenos Aires.
+        ubicacion:
+          type: string
+          minLength: 1
+          example: Buenos Aires, Argentina
+        puntaje:
+          type: number
+          minimum: 0
+          maximum: 10
+          example: 9.2
+        precio:
+          type: number
+          minimum: 0
+          example: 1580000
+        imagen:
+          type: string
+          minLength: 1
+          example: /images/fourseasonsbs.jpeg
+      required: [nombre, descripcion, ubicacion, puntaje, precio, imagen]
+    Reserva:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 507f1f77bcf86cd799439011
+          description: ID de MongoDB
+        diaInicio:
+          type: string
+          format: date-time
+          example: 2025-01-15T00:00:00.000Z
+        diaFin:
+          type: string
+          format: date-time
+          example: 2025-01-20T00:00:00.000Z
+        nombreHuesped:
+          type: string
+          minLength: 3
+          example: Juan Pérez
+        alojamiento:
+          oneOf:
+            - type: string
+              description: ID de MongoDB del alojamiento
+              example: 507f191e810c19729de860ea
+            - $ref: '#/components/schemas/Alojamiento'
+          description: Puede ser el ID del alojamiento o el objeto completo (populate)
+      required: [id, diaInicio, diaFin, nombreHuesped]
+    ReservaInput:
+      type: object
+      properties:
+        diaInicio:
+          type: string
+          format: date-time
+          example: 2025-01-15T00:00:00.000Z
+        diaFin:
+          type: string
+          format: date-time
+          example: 2025-01-20T00:00:00.000Z
+        nombreHuesped:
+          type: string
+          minLength: 3
+          example: Juan Pérez
+        alojamiento:
+          type: string
+          description: ID de MongoDB del alojamiento (opcional)
+          example: 507f191e810c19729de860ea
+      required: [diaInicio, diaFin, nombreHuesped]
+    Notificacion:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 507f1f77bcf86cd799439011
+          description: ID de MongoDB
+        titulo:
+          type: string
+          minLength: 3
+          maxLength: 50
+          example: Bienvenido a CirBnB
+        mensaje:
+          type: string
+          minLength: 3
+          maxLength: 500
+          example: Gracias por registrarte en nuestra plataforma. Esperamos que disfrutes de tu experiencia.
+        estado:
+          type: string
+          enum: [LEIDA, NO_LEIDA]
+          example: NO_LEIDA
+          description: Estado de la notificación (LEIDA o NO_LEIDA)
+      required: [id, titulo, mensaje, estado]
+    NotificacionInput:
+      type: object
+      properties:
+        titulo:
+          type: string
+          minLength: 3
+          maxLength: 50
+          example: Nueva reserva confirmada
+          description: Título de la notificación (min 3, max 50 caracteres)
+        mensaje:
+          type: string
+          minLength: 3
+          maxLength: 500
+          example: Tu reserva en Four Seasons Hotel ha sido confirmada para las fechas del 15 al 20 de enero.
+          description: Mensaje de la notificación (min 3, max 500 caracteres)
+      required: [titulo, mensaje]
+    PaginatedAlojamientos:
+      type: object
+      properties:
+        pagina:
+          type: integer
+          example: 1
+        perPage:
+          type: integer
+          example: 10
+        total:
+          type: integer
+          example: 42
+        totalPaginas:
+          type: integer
+          example: 5
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Alojamiento'
+    ZodIssue:
+      type: object
+      properties:
+        code:
+          type: string
+          example: too_small
+        minimum:
+          type: integer
+          example: 3
+        type:
+          type: string
+          example: string
+        inclusive:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: String must contain at least 3 character(s)
+        path:
+          type: array
+          items:
+            type: string
+      required: [code, message]
+    ZodIssues:
+      type: array
+      items:
+        $ref: '#/components/schemas/ZodIssue'
+    ErrorBadRequest:
+      type: object
+      description: Datos inválidos (400).
+      properties:
+        message:
+          type: string
+          example: Todos los campos son requeridos
+      required: [message]
+    ErrorNotFound:
+      type: object
+      description: Recurso no encontrado (404).
+      properties:
+        id:
+          type: integer
+          example: 123
+        message:
+          type: string
+          example: No existe el alojamiento con id 123
+      required: [id, message]
+    ErrorInternal:
+      type: object
+      description: Error interno del servidor (500).
+      properties:
+        error:
+          type: string
+          example: Ups. Algo sucedio en el servidor.
+      required: [error]

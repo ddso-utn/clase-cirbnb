@@ -15,19 +15,14 @@ class NotificacionService {
     };
   }
 
-  async obtenerNotificacionesNoLeidas() {
-    const notificacionesNoLeidas = await this.notificacionRepository.findByEstado("NO_LEIDA");
+  async obtenerUltimaNotificacionNoLeida() {
+    const ultimaNotificacion = await this.notificacionRepository.findLastByEstado("NO_LEIDA");
 
-    const notificacionesDTO = notificacionesNoLeidas.map((n) => this.toDTO(n));
+    if (!ultimaNotificacion) {
+      return null;
+    }
 
-    const promesasActualizacion = notificacionesNoLeidas.map(async (notificacion) => {
-      notificacion.marcarComoLeida();
-      await this.notificacionRepository.save(notificacion);
-    });
-
-    await Promise.all(promesasActualizacion);
-
-    return notificacionesDTO;
+    return this.toDTO(ultimaNotificacion);
   }
 
   async crearNotificacion(datos) {

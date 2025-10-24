@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "GET NOTIFICACIONES NO LEIDAS",
+			"name": "GET ULTIMA NOTIFICACION NO LEIDA",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -34,7 +34,7 @@
 						"notificacion"
 					]
 				},
-				"description": "Obtiene todas las notificaciones NO_LEIDA. Después de obtenerlas, automáticamente las marca como LEIDA en la base de datos. El endpoint devuelve las notificaciones con su estado original (NO_LEIDA)."
+				"description": "Obtiene la última notificación NO_LEIDA ordenada por fecha de creación (más reciente primero). La notificación NO se marca como LEIDA."
 			},
 			"response": []
 		},

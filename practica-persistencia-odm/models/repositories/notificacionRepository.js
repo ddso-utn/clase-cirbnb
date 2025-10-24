@@ -27,6 +27,18 @@ class NotificacionRepository {
     );
   }
 
+  async findLastByEstado(estado) {
+    const notificacion = await NotificacionSchema.findOne({ estado })
+      .sort({ createdAt: -1 });
+    if (!notificacion) return null;
+    return new Notificacion(
+      notificacion._id,
+      notificacion.titulo,
+      notificacion.mensaje,
+      notificacion.estado
+    );
+  }
+
   async save(notificacion) {
     let notificacionGuardada;
 

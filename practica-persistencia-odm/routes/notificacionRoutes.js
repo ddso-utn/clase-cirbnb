@@ -7,7 +7,7 @@ export default function notificacionRoutes(getController) {
   const router = express.Router();
 
   router.get(pathNotificacion, (req, res, next) => {
-    getController(NotificacionController).obtenerNotificacionesNoLeidas(req, res, next);
+    getController(NotificacionController).obtenerUltimaNotificacionNoLeida(req, res, next);
   });
 
   router.post(pathNotificacion, (req, res, next) => {

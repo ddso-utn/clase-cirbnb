@@ -1,6 +1,6 @@
 import AccomodationSearchBar from "../../components/accommodationSearchBar/AccomodationSearchBar";
 import HotelCarousel from "../../components/hotelCarousel/HotelCarousel";
-import { getHotelsSlowly, getHotels, getPromocion } from "../../api/api.js";
+import { getHotels, getPromocion } from "../../api/api.js";
 import {Spinner} from "react-bootstrap";
 import React, {useState, useEffect} from "react";
 import './Home.css'
@@ -38,9 +38,8 @@ const Home = () => {
      const verificarPromocion = async () => {
     try {
       const promo = await getPromocion();
-      if (promo && promo.descripcion) {
-        setPromocion(promo.descripcion);
-      }
+      setPromocion(promo.mensaje);
+      
     } catch (error) {
       console.error("Error obteniendo promoción:", error);
     }

@@ -43,8 +43,20 @@ export const crearReserva = async (idHotel, Nombre, FechaInicio, FechaFin) => {
 }
 
 export const getPromocion = async () => {
-  const response = await axios.get(`${API_BASE_URL}/notificacion`);
-  return response.data.mensaje;
+  try{
+    const response = await axios.get(`${API_BASE_URL}/notificacion`, {
+  headers: {
+    'Cache-Control': 'no-cache'
+  }
+});
+    return response.data;
+  }
+  catch (error) {
+    console.error("Error obteniendo la promoción:", error);
+    throw error;
+  }
+  
+
 }
 
 

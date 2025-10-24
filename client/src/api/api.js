@@ -3,9 +3,9 @@ import axios from 'axios';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL
 
-export const getHotels = async () => {
+export const getHotels = async (page) => {
   try{
-    const response = await axios.get(`${API_BASE_URL}/alojamiento`, {
+    const response = await axios.get(`${API_BASE_URL}/alojamiento?page=${page}`, {
   headers: {
     'Cache-Control': 'no-cache'
   }

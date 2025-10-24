@@ -24,7 +24,7 @@ export class AlojamientoService {
         return alojamientos.map(a => this.toDTO(a));
     }
 
-    async findAllPaginated(page = 1, limit = 10, filters = {}) {
+    async findAllPaginated(page, limit = 5, filters = {}) {
         // Validate and sanitize pagination params
         page = Math.max(1, parseInt(page) || 1);
         limit = Math.min(100, Math.max(1, parseInt(limit) || 10));

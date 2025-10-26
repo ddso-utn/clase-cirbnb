@@ -10,19 +10,28 @@ export const CartProvider = ({ children }) => {
     const [open, setOpen] = useState(false);
     const [alojamientosDeseados, setAlojamientosDeseados] = useState([]);
 
+    const removerAlojamiento = (alojamiento) => {
+        setAlojamientosDeseados(prev => {
+            const existing = prev.find(p => p.id === alojamiento.id);
+            if (existing) {
+                return prev.filter(a => a.id !== alojamiento.id);
+            }
+        });
+    }
     const mostrarCarrito = () => setOpen(true);
     const esconderCarrito = () => setOpen(false);
-    const agregarAlojamientoConCantidad = (product, amount) => {
-        const quantity = Math.max(0, product.cantidad + amount);
+    const agregarAlojamientoConCantidad = (alojamiento, cantidad) => {
+        const quantity = Math.max(1, cantidad);
         // Queda fea porque, primero hay qeu ver si lo encontramos y después cambiarlo
         // Prev es el estado previo del estado, es una función especial
         // El estado lo manejo yo
         setAlojamientosDeseados(prev => {
-            const existing = prev.find(p => p.id === product.id);
+            const existing = prev.find(p => p.id === alojamiento.id);
             if (existing) {
-                return prev.map(p => p.id === product.id ? { ...p, cantidad: quantity } : p);
+                console.log("Sumando una habitacion alojamiento: ", prev, quantity)
+                return prev.map(p => p.id === alojamiento.id ? { ...p, cantidadHabitaciones: quantity } : p);
             }
-            return [...prev, { ...product, cantidad: quantity }];
+            return [...prev, { ...alojamiento, cantidadHabitaciones: quantity }];
         });
     }
 
@@ -34,7 +43,8 @@ export const CartProvider = ({ children }) => {
                     mostrarCarrito, 
                     esconderCarrito, 
                     alojamientosDeseados, 
-                    agregarAlojamientoConCantidad
+                    agregarAlojamientoConCantidad,
+                    removerAlojamiento
                 }
             }
         >

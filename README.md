@@ -1,23 +1,26 @@
-# 📚 Clase - Sábado 18/10  
-Este repositorio contiene los materiales, ejemplos y prácticas realizadas durante la clase de profundización en **React**, centrada en el uso de **componentes externos**, **estado**, **comunicación entre componentes**, **formularios** y **carrito de compras**.
+# 📚 Clase - Sábado 11/10
+Este repositorio contiene los materiales, ejemplos y prácticas realizados durante la clase de introducción a **React**.  
 
 ---
+
 ## 🔹 Temas vistos
-- Incorporación de bibliotecas de componentes UI:
-  - [Material UI](https://mui.com/)
-  - [React Bootstrap](https://react-bootstrap.netlify.app/)
-  - [Ant Design](https://ant.design/)
-- Utilización de componentes de bibliotecas externas
-- Manejo del **estado del buscador** con `useState` y comunicación **padre → hijo** mediante props
-- Simulación de carga de datos asíncrona con **Spinner de carga** para mejorar la **usabilidad**
-- Creación de la pantalla **Checkout** con:
-  - Uso de componentes input externos
-  - Manejo de múltiples campos con `useState`
-  - Funciones auxiliares para inicializar y validar campos
-- Buenas prácticas de modularización, control de estado y diseño de formularios en React
+- ¿Qué es React? y su funcionamiento con el **Virtual DOM**
+- **JSX** y diferencias con HTML
+- **Componentes** (funcionales y con arrow functions)
+- **Props**: comunicación entre componentes
+- **Renderizado condicional** y uso de fragmentos (`<> </>`)
+- **Estructura de carpetas** en un proyecto React
+- **Layout** general con Header y Footer
+- Listas con **.map()** y datos mockeados
+- Introducción al **Routing** con React Router
+- Uso de **Link**, **Route** y **Layout**
+- Reutilización de componentes y buenas prácticas
 ---
 
-## ⚙️ Dependencias utilizadas
+## ⚙️ Crear un nuevo proyecto React
+Para iniciar una app React:
+
 ```bash
-npm install @mui/material @emotion/react @emotion/styled
-npm install react-bootstrap
+npx create-react-app nombre-app
+cd nombre-app
+npm start

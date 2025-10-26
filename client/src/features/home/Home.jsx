@@ -6,7 +6,7 @@ import React, {useState, useEffect} from "react";
 import './Home.css'
 import Paginacion from "../../components/paginacion/Paginacion";
 import PromocionPopup from "../../components/promocionPopup/PromocionPopup";
-import ShoppingCartDrawer from "../../components/cartDrawer/cartDrawer.jsx";
+import CartDrawer from "../../components/cartDrawer/CartDrawer.jsx";
 
 const Home = () => {
     const [hoteles, setHoteles] = useState([]);
@@ -81,9 +81,9 @@ const Home = () => {
             mensaje={promocion}
             onClose={() => setPromocion(null)}
           />
+          <CartDrawer></CartDrawer>
         </div>
         }
-        <ShoppingCartDrawer/>
       </>
     )
 };

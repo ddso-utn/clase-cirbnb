@@ -3,11 +3,13 @@ import { hoteles } from '../../mockdata/Hoteles';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { ButtonGroup, Button } from '@mui/material';
+import {useCartContext} from "../../store/CartContext.jsx"
 import "./HotelDetailPage.css"
 import { getHotelById } from "../../api/api.js";
 
 const conHabitaciones = (cantidadHabitaciones, hotel) => ({...hotel, cantidadHabitaciones})
 const HotelDetailPage = ({ carrito, actualizarCarrito }) => {
+const {agregarAlojamientoConCantidad} = useCartContext();
   const navigate = useNavigate()
   const { id } = useParams();
   
@@ -42,6 +44,7 @@ const HotelDetailPage = ({ carrito, actualizarCarrito }) => {
   };
 
   const reservar = () => {
+    agregarAlojamientoConCantidad(hotel, habitaciones)
     actualizarCarrito(conHabitaciones(habitaciones, hotel))  
     navigate("/")
   }

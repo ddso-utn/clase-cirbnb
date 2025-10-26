@@ -1,12 +1,14 @@
 import { Link } from 'react-router';
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
+import { useCartContext } from '../../store/CartContext';
 import './Navbar.css';
 import {FaShoppingCart} from 'react-icons/fa'
 import '../../index.css'
 
 const Navbar = ({carrito}) => {
   const navigate = useNavigate()
+  const {mostrarCarrito} = useCartContext();
   const [cantHabitaciones, setCantHabitaciones] = useState(0);
 
   const irAChekout = () => {
@@ -39,7 +41,7 @@ const Navbar = ({carrito}) => {
         </div>
 
         <div className="navbar-section right">
-          <button className="cart" onClick={irAChekout}>
+          <button className="cart" onClick={mostrarCarrito}>
             <FaShoppingCart color="white"/>
             <span className="cart-count">{cantHabitaciones}</span>
           </button>

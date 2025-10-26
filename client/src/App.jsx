@@ -6,6 +6,7 @@ import HotelDetailPage from './features/hotels/HotelDetailPage.jsx';
 import {createTheme, ThemeProvider} from "@mui/material"
 import Checkout from './features/checkout/Checkout.jsx';
 import React, {useState} from "react";
+import { CartProvider } from './store/CartContext.jsx';
 
 
 const theme = createTheme({
@@ -29,29 +30,31 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout  carrito={carrito}/>} >
-            <Route index element={<Home />} />
-            <Route 
-              path="/hotels/:id" 
-              element={
-                <HotelDetailPage
+      <CartProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout  carrito={carrito}/>} >
+              <Route index element={<Home />} />
+              <Route 
+                path="/hotels/:id" 
+                element={
+                  <HotelDetailPage
+                    carrito={carrito}
+                    actualizarCarrito={actualizarCarrito}
+                  />
+                } 
+              />
+              <Route 
+                path="/checkout" 
+                element={
+                <Checkout 
                   carrito={carrito}
-                  actualizarCarrito={actualizarCarrito}
-                />
-              } 
-            />
-            <Route 
-              path="/checkout" 
-              element={
-              <Checkout 
-                carrito={carrito}
-                limpiarCarrito={limpiarCarrito}
-              />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+                  limpiarCarrito={limpiarCarrito}
+                />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </CartProvider>
     </ThemeProvider>
   );
 }

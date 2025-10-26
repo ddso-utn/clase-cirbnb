@@ -23,10 +23,10 @@ const HotelDetailPage = ({ carrito, actualizarCarrito }) => {
     cargarHotel();
   }, [id]);
 
-  const [habitaciones, setHabitaciones] = useState(0);
+  const [habitaciones, setHabitaciones] = useState(1);
 
   useEffect(() => {
-    setHabitaciones(0);
+    setHabitaciones(1);
   }, [id, carrito]);
   
   const incrementarHabitaciones = () => {
@@ -96,7 +96,7 @@ const HotelDetailPage = ({ carrito, actualizarCarrito }) => {
       
       <div className="reservar-container">
         <ButtonGroup variant="outlined" aria-label="outlined button group">
-          <Button onClick={decrementarHabitaciones} disabled={habitaciones === 0}>-</Button>
+          <Button onClick={decrementarHabitaciones} disabled={habitaciones === 1}>-</Button>
           <Button disabled>{habitaciones}</Button>
           <Button onClick={incrementarHabitaciones}>+</Button>
         </ButtonGroup>

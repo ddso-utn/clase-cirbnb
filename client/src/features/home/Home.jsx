@@ -6,6 +6,7 @@ import React, {useState, useEffect} from "react";
 import './Home.css'
 import Paginacion from "../../components/paginacion/Paginacion";
 import PromocionPopup from "../../components/promocionPopup/PromocionPopup";
+import ShoppingCartDrawer from "../../components/cartDrawer/cartDrawer.jsx";
 
 const Home = () => {
     const [hoteles, setHoteles] = useState([]);
@@ -61,7 +62,7 @@ const Home = () => {
         <div className="home-body">
           <AccomodationSearchBar filtrarHoteles={filtrarHoteles}></AccomodationSearchBar>
         </div>
-        {!hoteles.length ? <div className="spinner">
+        {!hoteles?.length ? <div className="spinner">
           <Spinner/>
         </div> :
           <div>
@@ -82,6 +83,7 @@ const Home = () => {
           />
         </div>
         }
+        <ShoppingCartDrawer/>
       </>
     )
 };

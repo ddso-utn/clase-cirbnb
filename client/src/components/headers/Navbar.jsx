@@ -1,31 +1,20 @@
 import { Link } from 'react-router';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from "react-router-dom";
 import { useCartContext } from '../../store/CartContext';
 import './Navbar.css';
 import {FaShoppingCart} from 'react-icons/fa'
 import '../../index.css'
 
-const Navbar = ({carrito}) => {
+const Navbar = () => {
   const navigate = useNavigate()
-  const {mostrarCarrito} = useCartContext();
-  const [cantHabitaciones, setCantHabitaciones] = useState(0);
+  const {mostrarCarrito, alojamientosDeseados} = useCartContext();
 
   const irAChekout = () => {
     navigate("/checkout")
   }
 
-  const cantHabitacionesEnCarrito = () => {
-    let suma = 0
-    for (const hotel of carrito) {
-      suma += hotel.cantidadHabitaciones
-    }
-    return suma;
-  }
-
-  useEffect(() => {
-    setCantHabitaciones(cantHabitacionesEnCarrito());
-  }, [carrito]);
+  const cantidadTotalHabitaciones = alojamientosDeseados.reduce((acc, a) => acc + a.cantidadHabitaciones, 0);
 
   return (
     <header className="navbar-bg">
@@ -43,7 +32,7 @@ const Navbar = ({carrito}) => {
         <div className="navbar-section right">
           <button className="cart" onClick={mostrarCarrito}>
             <FaShoppingCart color="white"/>
-            <span className="cart-count">{cantHabitaciones}</span>
+            <span className="cart-count">{cantidadTotalHabitaciones}</span>
           </button>
         </div>
       </nav>

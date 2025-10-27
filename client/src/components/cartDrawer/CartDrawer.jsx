@@ -96,6 +96,7 @@ const CartDrawer = () => {
                 color="primary"
                 onClick={() => {
                     setOpenModal(false);
+                    esconderCarrito();
                     navigate("/checkout");
                 }}
                 sx={{ mt: 2 }}

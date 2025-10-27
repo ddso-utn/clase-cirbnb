@@ -7,8 +7,7 @@ import {useCartContext} from "../../store/CartContext.jsx"
 import "./HotelDetailPage.css"
 import { getHotelById } from "../../api/api.js";
 
-const conHabitaciones = (cantidadHabitaciones, hotel) => ({...hotel, cantidadHabitaciones})
-const HotelDetailPage = ({ carrito, actualizarCarrito }) => {
+const HotelDetailPage = ({ carrito }) => {
 const {agregarAlojamientoConCantidad} = useCartContext();
   const navigate = useNavigate()
   const { id } = useParams();
@@ -45,7 +44,6 @@ const {agregarAlojamientoConCantidad} = useCartContext();
 
   const reservar = () => {
     agregarAlojamientoConCantidad(hotel, habitaciones)
-    actualizarCarrito(conHabitaciones(habitaciones, hotel))  
     navigate("/")
   }
 

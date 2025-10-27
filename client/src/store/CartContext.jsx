@@ -18,6 +18,8 @@ export const CartProvider = ({ children }) => {
             }
         });
     }
+
+    const limpiarCarrito = () => setAlojamientosDeseados([])
     const mostrarCarrito = () => setOpen(true);
     const esconderCarrito = () => setOpen(false);
     const agregarAlojamientoConCantidad = (alojamiento, cantidad) => {
@@ -44,7 +46,8 @@ export const CartProvider = ({ children }) => {
                     esconderCarrito, 
                     alojamientosDeseados, 
                     agregarAlojamientoConCantidad,
-                    removerAlojamiento
+                    removerAlojamiento,
+                    limpiarCarrito
                 }
             }
         >

@@ -40,7 +40,6 @@ function App() {
                 element={
                   <HotelDetailPage
                     carrito={carrito}
-                    actualizarCarrito={actualizarCarrito}
                   />
                 } 
               />

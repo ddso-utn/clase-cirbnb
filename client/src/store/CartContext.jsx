@@ -10,6 +10,10 @@ export const CartProvider = ({ children }) => {
     const [open, setOpen] = useState(false);
     const [alojamientosDeseados, setAlojamientosDeseados] = useState([]);
 
+    const limpiarCarrito = () => setAlojamientosDeseados([])
+    const mostrarCarrito = () => setOpen(true);
+    const esconderCarrito = () => setOpen(false);
+
     const removerAlojamiento = (alojamiento) => {
         setAlojamientosDeseados(prev => {
             const existing = prev.find(p => p.id === alojamiento.id);
@@ -19,9 +23,6 @@ export const CartProvider = ({ children }) => {
         });
     }
 
-    const limpiarCarrito = () => setAlojamientosDeseados([])
-    const mostrarCarrito = () => setOpen(true);
-    const esconderCarrito = () => setOpen(false);
     const agregarAlojamientoConCantidad = (alojamiento, cantidad) => {
         const quantity = Math.max(1, cantidad);
         // Queda fea porque, primero hay qeu ver si lo encontramos y después cambiarlo

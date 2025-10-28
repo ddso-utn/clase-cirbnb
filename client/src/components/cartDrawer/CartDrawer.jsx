@@ -11,7 +11,6 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { useState } from 'react';
 
-// TODO: Remove product
 const CartDrawer = () => {
     const navigate = useNavigate();
     const { 
@@ -22,7 +21,6 @@ const CartDrawer = () => {
         removerAlojamiento 
     } = useCartContext();
     const [openModal, setOpenModal] = useState(false);
-    const alojamientosFiltrados = alojamientosDeseados.filter(a => a.cantidadHabitaciones > 0);
     const comprar = () => setOpenModal(true);
     const total = alojamientosDeseados.reduce((sum, a) => sum + a.precio * a.cantidadHabitaciones, 0);
 
@@ -30,11 +28,11 @@ const CartDrawer = () => {
     <Drawer anchor="right" open={open} onClose={esconderCarrito}>
       <div className="cart-drawer-content">
         <h2>Carrito</h2>
-        {alojamientosFiltrados.length === 0 ? (
+        {alojamientosDeseados.length === 0 ? (
           <p className="cart-empty">No hay productos en el carrito.</p>
         ) : (
           <div className="cart-list">
-            {alojamientosFiltrados.map(a => (
+            {alojamientosDeseados.map(a => (
               <div key={a.id} className="cart-item">
                 <img src={a.imagen} alt={a.nombre} className="cart-item-img" />
                 <div className="cart-item-info">
@@ -63,7 +61,7 @@ const CartDrawer = () => {
             <span>${total.toFixed(2)}</span>
           </div>
           <Button
-            disabled={!alojamientosFiltrados.length}
+            disabled={!alojamientosDeseados.length}
             variant="contained"
             color="primary"
             fullWidth
@@ -90,7 +88,7 @@ const CartDrawer = () => {
                 }}
             >
                 <h2>¡Compra confirmada!</h2>
-                <p>Ud. va a comprar: {alojamientosFiltrados.map(a => a.nombre).join(', ')}</p>
+                <p>Ud. va a comprar: {alojamientosDeseados.map(a => a.nombre).join(', ')}</p>
                 <Button
                 variant="contained"
                 color="primary"

@@ -44,6 +44,14 @@ const Checkout = () => {
     }))
   );
 
+  const comprar = async () => {
+    const nombreCompleto = `${values.nombre} + ${values.apellido}`
+    for (const a of alojamientosConFechas) {
+      console.log(a)
+      await crearReserva(a.id, nombreCompleto, a.fechaEntrada, a.fechaSalida)
+    }
+  }
+
   const {
     values,
     isSubmitting,
@@ -101,6 +109,12 @@ const Checkout = () => {
                 fullWidth
                 variant="standard"
                 label="Fecha de entrada"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                inputProps={{
+                  placeholder: ""
+                }}
               />
               <TextField
                 value={alojamiento.fechaSalida}
@@ -109,6 +123,12 @@ const Checkout = () => {
                 fullWidth
                 variant="standard"
                 label="Fecha de salida"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                inputProps={{
+                  placeholder: ""
+                }}
               />
             </Card>
           ))}
@@ -182,6 +202,7 @@ const Checkout = () => {
               }
               variant="contained"
               type="submit"
+              onClick={comprar}
             >
               Comprar
             </Button>

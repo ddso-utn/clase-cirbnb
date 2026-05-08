@@ -10,8 +10,11 @@ export class AlojamientoRepository {
 
 
     async findAll() {
-        return await this.model.find();
+        return await this.model.find({eliminado: false});  //.find({ eliminado: false }) para el caso de baja logica
+        //ver en mogoose lo de paginado
     }
+
+    //AGREGAR ALGO CON AGREGACION
 
     /*
     //Si queremos cargar la bireccionalidad 
@@ -27,6 +30,10 @@ export class AlojamientoRepository {
     }
     */
 
+    async findById(id) {
+        return await this.model.findById(id);
+    }
+
     async findByName(nombre) {
         return await this.model.findOne({ nombre });
     }
@@ -40,6 +47,7 @@ export class AlojamientoRepository {
     }
 
     async delete(id) {
+        //CONTAR LO DEL DELETE LOGICO con una marca que sea removed y controlar eso despues
         return await this.model.findByIdAndDelete(id);
     }
 
@@ -58,8 +66,50 @@ export class AlojamientoRepository {
     return await this.model.find({
         precioPorNoche: { $gt: min, $lt: max }
     });
-
     }
 
+    //AGREGAR CONCEPTO DE SESION
+
+    //ENTIDADES, CONTROLLER, SERVICE PELADO, RUTAS, TODO HECHO
     
+
+
+    //-------------- EXTRA
+    //GET ALL PAGINAO
+    async findAllPaginated(page = 1, limit = 5) {
+        //cuantos documentos hay que saltar
+        const skip = (page - 1) * limit
+
+        const alojamientos =
+            await this.model
+                .find() //.find({ eliminado: false })
+
+                .skip(skip)
+                .limit(limit)
+
+        const total =
+            await this.model.countDocuments({
+                //eliminado: false
+            })
+
+        return {
+            alojamientos,
+            total,
+            page,
+            // por ejemplo para 23 con x por pagina -> 4.6 necesito 5 paginas la ultima no completa
+            totalPages: Math.ceil(total / limit)
+        }
+    }
+
+    //SOFT DELETE
+    async softDelete(id) {
+        return await this.model.findByIdAndUpdate( id,
+                {
+                    eliminado: true
+                },
+                {
+                    new: true //ESTO LE DICE A MONGOOSE DAME EL DOCU ACTUALIZADO
+                }
+            )
+    }
 }

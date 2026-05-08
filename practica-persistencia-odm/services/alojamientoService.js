@@ -34,16 +34,26 @@ export class AlojamientoService {
 
         const nuevo = new Alojamiento(nombre, precioPorNoche);
         const alojamientoGuardado = await this.alojamientoRepository.save(nuevo);
+
+        //agregar alguna logica del metodo de los alojamientos
+
+
         return this.toDTO(alojamientoGuardado);
     }
 
+    
     async findById(id) {
         const alojamiento = await this.alojamientoRepository.findById(id);
         if (!alojamiento) {
             throw new NotFoundError("Alojamiento no encontrado");
         }
+
+        //agregar alguna logica del metodo de los alojamientos
+
+
         return this.toDTO(alojamiento);
     }
+    
 
     async update(id, data) {
         const alojamiento = await this.alojamientoRepository.findById(id);
@@ -65,5 +75,22 @@ export class AlojamientoService {
         }
         await this.alojamientoRepository.delete(id);
         return this.toDTO(alojamiento);
+    }
+
+
+
+
+
+    //-------------- EXTRA
+    //GET ALL PAGINADO
+    async findAllPaginated(page, limit) {
+        return await this.alojamientoRepository
+            .findAllPaginated(page, limit)
+    }
+
+    //SOFT DELETE
+    async softDelete(id) {
+        return await this.alojamientoRepository
+            .softDelete(id)
     }
 }

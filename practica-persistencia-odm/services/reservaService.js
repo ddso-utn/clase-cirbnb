@@ -43,7 +43,8 @@ export class ReservaService {
             throw new NotFoundError("Reserva no encontrada");
         }
 
-        reserva.cantidadNoches(); //Prueba del metodo cantidadNoches porque aca ya tenemos nuestro objeto JS automaticamente.
+        console.log('--- CANTIDAD DE NOCHES ---');
+        console.log(reserva.cantidadNoches()); //Prueba del metodo cantidadNoches porque aca ya tenemos nuestro objeto JS automaticamente.
 
 
         return this.toDTO(reserva);
@@ -71,4 +72,88 @@ export class ReservaService {
         await this.reservaRepository.delete(id);
         return this.toDTO(reserva);
     }
+
+
+
+
+    //-------------- EXTRA
+    
+    //AGREGACION
+    async reservasPorAlojamiento() {
+        return await this.reservaRepository.reservasPorAlojamiento();
+    }
+
+    //LOGICA CON OBJETOS
+    async obtenerReservaConTotal(id) {
+        const reserva = await this.reservaRepository.findById(id)
+        //HASTA ACA RESERVA ES UN OBJETO MONGOOSE TIENE DATOS, METODOS, FUNCIONES Y METADATA
+
+        const fechaInicio = new Date(reserva.diaInicio)
+        const fechaFin = new Date(reserva.diaFin)
+        const dias = Math.ceil( (fechaFin - fechaInicio) / (1000 * 60 * 60 * 24))
+        const total = dias * reserva.alojamiento.precioPorNoche
+
+        return {
+            //ACA SI LO CONVIERTO EN OBJETO JS CON DATOS PUROS
+            ...reserva.toObject(), //... DESPARRAMA PROPIEDADES DEL OBJETO RESERVA EN EL NUEVO OBJETO QUE ESTOY CREANDO
+            cantidadDias: dias,
+            totalReserva: total
+        }
+    }
+
+
+    //SESION
+    /*
+    Una sesión permite agrupar operaciones MongoDB
+    dentro de un mismo contexto transaccional.
+
+    Si algo falla, se puede hacer rollback.
+
+    La transacción es lógica de negocio, POR ENDE VA EN SERVICE
+    
+    Aunque acá usamos una sola operación,
+    las sesiones son útiles cuando
+    hay múltiples escrituras relacionadas.
+
+    Las transacciones en Mongo requieren replica set, que es una config pensada para alta disp, replicacion, consistencia, etc auqneu se tenga solo una instancia.
+    En producción suele usarse Atlas o clusters replicados. Y a veces al instalar local suele venir desactivada esta opcion.
+
+    */
+
+    async createReserva(data) {
+        // iniciamos sesión
+        const session = await mongoose.startSession()
+        try {
+            // iniciamos transacción
+            session.startTransaction()
+            // creamos reserva usando sesión
+            const reserva =
+                await this.repository.create(
+                    data,
+                    session
+                )
+            // confirmamos cambios
+            await session.commitTransaction()
+            return reserva
+
+        } catch(error) {
+            // rollback
+            await session.abortTransaction()
+            throw error
+        } finally {
+            // cerramos sesión, la sesión siempre debe cerrarse.
+            session.endSession()
+        }
+    }
+
+        //y el el repo:
+        async create(data, session) {
+
+            // create usando sesión Mongo
+            return await this.model.create(
+                [data],
+                { session }
+            )
+        }
+
 }

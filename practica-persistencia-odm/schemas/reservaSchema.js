@@ -31,6 +31,8 @@ const ReservaSchema = new mongoose.Schema({
          
 });
 
+
+//MIDDLEWARE
 ReservaSchema.pre(/^find/, function(next) {
     this.populate('alojamiento', '');
     next();

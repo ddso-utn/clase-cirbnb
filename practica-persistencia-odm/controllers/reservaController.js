@@ -63,4 +63,27 @@ export class ReservaController {
             next(error);
         }
     }
+
+
+
+
+    //-------------- EXTRA
+
+    async reservasPorAlojamiento(req, res, next) {
+        try {
+            const reservas = await this.reservaService.reservasPorAlojamiento();
+            res.json(reservas);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async obtenerReservaConTotal(req, res, next) {
+        try {
+            const reserva = await this.reservaService.obtenerReservaConTotal(req.params.id);
+            res.json(reserva);
+        } catch (error) {
+            next(error);
+        }
+    }
 }

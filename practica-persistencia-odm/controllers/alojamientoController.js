@@ -57,5 +57,33 @@ export class AlojamientoController {
         }
     }
 
+
+
+
+
+    //------------ EXTRA
+    //GET ALL PAGINADO
+    async findAllPaginated(req, res, next) {
+        try {
+            const page = Number(req.query.page) || 1
+            const limit = Number(req.query.limit) || 5
+            const resultado =  await this.alojamientoService.findAllPaginated(page, limit)
+            res.json(resultado)
+        } catch(error) {
+            next(error)
+        }
+    }
+
+    //SOFT DELETE
+    async softDelete(req, res, next) {
+        try {
+            const resultado = await this.alojamientoService
+                    .softDelete(req.params.id)
+            res.json(resultado)
+        } catch(error) {
+            next(error)
+        }
+    }
+
     
 }

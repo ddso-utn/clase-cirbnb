@@ -1,13 +1,13 @@
 {
   "info": {
-    "_postman_id": "dfd87444-953b-49d1-adc5-f194c20dbecc",
-    "name": "Reservas - PRACTICA ODM Y PERSISTENCIA",
+    "_postman_id": "a863f97c-efd4-460c-b6ca-d65c20e79194",
+    "name": "Extras - PRACTICA ODM Y PERSISTENCIA",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "21228147"
   },
   "item": [
     {
-      "name": "GET ALL",
+      "name": "AGREGACION - RESxALOJ",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
       },
@@ -24,21 +24,23 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3000/reserva",
+          "raw": "http://localhost:3000/reserva/estadisticas/reservas-por-alojamiento",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "3000",
           "path": [
-            "reserva"
+            "reserva",
+            "estadisticas",
+            "reservas-por-alojamiento"
           ]
         }
       },
       "response": []
     },
     {
-      "name": "GET ALL W FILTER",
+      "name": "GET ALL PAGINADO",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
       },
@@ -55,19 +57,24 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3000/reserva?nombreHuesped=Juan Pérez",
+          "raw": "http://localhost:3000/alojamiento/paginado?page=1&limit=6",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "3000",
           "path": [
-            "reserva"
+            "alojamiento",
+            "paginado"
           ],
           "query": [
             {
-              "key": "nombreHuesped",
-              "value": "Juan Pérez"
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "6"
             }
           ]
         }
@@ -75,7 +82,7 @@
       "response": []
     },
     {
-      "name": "GET ONE",
+      "name": "LOGICA SOBRE OBJETO - PRECIO TOTAL",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
       },
@@ -92,7 +99,7 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3000/reserva/69fe20d6fcd18fa3afe4a514",
+          "raw": "http://localhost:3000/reserva/69fe3239f82a81ec1592581b/total",
           "protocol": "http",
           "host": [
             "localhost"
@@ -100,77 +107,21 @@
           "port": "3000",
           "path": [
             "reserva",
-            "69fe20d6fcd18fa3afe4a514"
+            "69fe3239f82a81ec1592581b",
+            "total"
           ]
         }
       },
       "response": []
     },
     {
-      "name": "PUT",
-      "request": {
-        "method": "PUT",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"diaInicio\": \"2026-09-26\",\n  \"diaFin\": \"2026-09-29\",\n  \"nombreHuesped\": \"Otro\",\n  \"alojamiento\": \"68d57199ce39239868ec07e2\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:3000/reserva/68d575761796d46ef0bc80ef",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "3000",
-          "path": [
-            "reserva",
-            "68d575761796d46ef0bc80ef"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "POST",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"diaInicio\": \"2026-11-30\",\n  \"diaFin\": \"2026-12-05\",\n  \"nombreHuesped\": \"Juan Pérez\",\n  \"alojamiento\": \"69ff372e63e524245058832a\"  // ID válido de un alojamiento existente\n}\n",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "http://localhost:3000/reserva",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "3000",
-          "path": [
-            "reserva"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "DELETE",
+      "name": "SOFT DELETE",
       "request": {
         "method": "DELETE",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"nombre\": \"Hotel Copilot\",\n  \"precioPorNoche\": 100,\n  \"categoria\": \"Premium\"\n}",
+          "raw": "",
           "options": {
             "raw": {
               "language": "json"
@@ -178,14 +129,16 @@
           }
         },
         "url": {
-          "raw": "http://localhost:3000/reserva",
+          "raw": "http://localhost:3000/alojamiento/soft/69fe484cf82a81ec1592581e",
           "protocol": "http",
           "host": [
             "localhost"
           ],
           "port": "3000",
           "path": [
-            "reserva"
+            "alojamiento",
+            "soft",
+            "69fe484cf82a81ec1592581e"
           ]
         }
       },

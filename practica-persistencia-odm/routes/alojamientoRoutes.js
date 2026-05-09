@@ -15,7 +15,6 @@ export default function alojamientoRoutes(getController) {
         controller.create(req,res, next)
     })
 
-    //------------ EXTRA
     router.get(pathAlojamiento + "/paginado", (req, res, next) => {
         controller.findAllPaginated(req, res, next)
     })
@@ -32,7 +31,6 @@ export default function alojamientoRoutes(getController) {
         controller.update(req,res, next)
     })
 
-    //------------ EXTRA
     router.delete(pathAlojamiento + "/soft/:id", (req, res, next) => {
         controller.softDelete(req,res, next)
     })

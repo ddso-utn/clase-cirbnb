@@ -26,15 +26,11 @@ export default function reservaRoutes(getController) {
     router.delete(pathReserva + "/:id", (req, res, next) => {
         controller.delete(req, res, next);
     });
-    //-------- EXTRA
+
     router.get( "/reserva/:id/total", (req, res, next) => {
         controller.obtenerReservaConTotal(req, res, next);
     });
 
-
-
-
-    //------------ EXTRA
     router.get(pathReserva + "/estadisticas/reservas-por-alojamiento", (req, res, next) => {
         controller.reservasPorAlojamiento(req, res, next);
     });

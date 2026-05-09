@@ -3,7 +3,7 @@ import { ReservaModel } from "../../schemas/reservaSchema.js";
 
 export class AlojamientoRepository {
     
-    //Este es el modelo que previamente dijimos que lo usabamos en node
+    //Este es el modelo que creamos en el esquema, es el modelo de mongoose que nos ayudara con todas las consultas a la base
     constructor() {
         this.model = AlojamientoModel;
     }
@@ -11,13 +11,11 @@ export class AlojamientoRepository {
 
     async findAll() {
         return await this.model.find({eliminado: false});  //.find({ eliminado: false }) para el caso de baja logica
-        //ver en mogoose lo de paginado
     }
 
-    //AGREGAR ALGO CON AGREGACION
 
     /*
-    //Si queremos cargar la bireccionalidad 
+    //SI QUEREMOS CARGAR LA BIDERICCIONALIDAD EN ALOJAMIENTO (PORQUE EN RESERVA YA POPULAMOS EL ALOJAMIENTO)
     async findById(id) {
         const alojamientoSchema = await this.model.find();
         for (let alojamiento of alojamientoSchema) {
@@ -47,7 +45,6 @@ export class AlojamientoRepository {
     }
 
     async delete(id) {
-        //CONTAR LO DEL DELETE LOGICO con una marca que sea removed y controlar eso despues
         return await this.model.findByIdAndDelete(id);
     }
 
@@ -68,21 +65,14 @@ export class AlojamientoRepository {
     });
     }
 
-    //AGREGAR CONCEPTO DE SESION
-
-    //ENTIDADES, CONTROLLER, SERVICE PELADO, RUTAS, TODO HECHO
-    
-
-
-    //-------------- EXTRA
-    //GET ALL PAGINAO
+    //GET ALL PAGINADO
     async findAllPaginated(page = 1, limit = 5) {
         //cuantos documentos hay que saltar
         const skip = (page - 1) * limit
 
         const alojamientos =
             await this.model
-                .find() //.find({ eliminado: false })
+                .find() //.find({ eliminado: false }) -> recrodar si usamos esto para baja logica
 
                 .skip(skip)
                 .limit(limit)
@@ -108,7 +98,7 @@ export class AlojamientoRepository {
                     eliminado: true
                 },
                 {
-                    new: true //ESTO LE DICE A MONGOOSE DAME EL DOCU ACTUALIZADO
+                    new: true //ESTO LE DICE A MONGOOSE QUE ME RETORNE EL DOCUMENTO ACTUALIZADO, NO EL VIEJO
                 }
             )
     }

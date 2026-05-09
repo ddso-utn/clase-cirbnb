@@ -57,11 +57,6 @@ export class AlojamientoController {
         }
     }
 
-
-
-
-
-    //------------ EXTRA
     //GET ALL PAGINADO
     async findAllPaginated(req, res, next) {
         try {

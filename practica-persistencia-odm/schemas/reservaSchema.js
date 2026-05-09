@@ -32,7 +32,7 @@ const ReservaSchema = new mongoose.Schema({
 });
 
 
-//MIDDLEWARE
+//MIDDLEWARE PARA POPULAR TODOS LOS METODOS QUE TENGAN 'find'
 ReservaSchema.pre(/^find/, function(next) {
     this.populate('alojamiento', '');
     next();

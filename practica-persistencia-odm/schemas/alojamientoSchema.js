@@ -12,7 +12,7 @@ const alojamientoSchema = new mongoose.Schema({
         required: true,
         min: 0
     },
-    //ESTO NO PONERLO AL PRINCIPIO
+    //ESTO ES PARA EL SOFT DELETE
     eliminado: {
         type: Boolean,
         default: false
@@ -23,13 +23,14 @@ const alojamientoSchema = new mongoose.Schema({
     collection: 'alojamientos'
 });
 
-/* ESTO PARA Q NO SEA VEA EL VERSIONKEY
+/* ESTO PARA Q NO SEA VEA EL VERSIONKEY EN LOS POPULATE 
 alojamientoSchema.set('toJSON', {
    versionKey: false
 });
 */
 
-
+//CARGAMOS EL ESQUEMA ALOJAMIENTO (MONGOOSE) A LA ENTIDAD ALOJAMIENTO (NUESTRO DOMINIO)
 alojamientoSchema.loadClass(Alojamiento);
 
+//EXPORTAMOS EL MODELO MONGOOSE QUE SE USARA CORRESPONDIENTE AL ESQUEMA
 export const AlojamientoModel = mongoose.model('Alojamiento', alojamientoSchema);

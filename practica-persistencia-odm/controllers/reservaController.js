@@ -64,11 +64,6 @@ export class ReservaController {
         }
     }
 
-
-
-
-    //-------------- EXTRA
-
     async reservasPorAlojamiento(req, res, next) {
         try {
             const reservas = await this.reservaService.reservasPorAlojamiento();

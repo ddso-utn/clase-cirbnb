@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-
+//CONEXION A LA BASE DE DATOS
 export class MongoDBClient {
     static async connect() {
         try {

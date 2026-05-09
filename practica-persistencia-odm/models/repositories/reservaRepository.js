@@ -6,7 +6,7 @@ export class ReservaRepository {
     }
 
     async findAll() {
-        return await this.model.find().populate('alojamiento');
+        return await this.model.find().populate('alojamiento'); //RECORDAR QUE SIN EL POPULATE PUEDE USAR EL MIDDLEWARE DEL SCHEMA O RERTORNAR EL ID EN VEZ DEL OBJETO
     }
 
 
@@ -46,46 +46,30 @@ export class ReservaRepository {
 
 
 
-    //-------------- EXTRA
-
     async reservasPorAlojamiento() {
 
     // aggregate() inicia un PIPELINE DE AGREGACIÓN.
-    //Permite procesar datos mediante etapas de transformación llamadas pipeline.
+    // Permite procesar datos mediante etapas de transformación llamadas pipeline.
     // La agregación en MongoDB funciona parecido a una línea de producción:
     // Cada objeto dentro del array [] es una ETAPA.
     // Los datos van pasando por cada etapa y transformándose.
 
     return await this.model.aggregate([
-
-        // =====================================================
-        // ETAPA 1 -> $group
-        // =====================================================
-        //
         // $group sirve para AGRUPAR documentos.
         // Es parecido al GROUP BY de SQL.
-        //
-        // Queremos agrupar reservas según el alojamiento.
-        //
         // Ejemplo:
-        //
         // Reserva 1 -> alojamiento A
         // Reserva 2 -> alojamiento A
         // Reserva 3 -> alojamiento B
-        //
         // Resultado:
-        //
         // alojamiento A -> 2 reservas
         // alojamiento B -> 1 reserva
-        //
         {
             $group: {
 
                 // _id es la "clave de agrupación".
-                // "$alojamiento" significa:
-                // "agrupá por el valor del campo alojamiento"
+                // "$alojamiento" significa: "agrupá por el valor del campo alojamiento"
                 // "$: estoy leyendo un campo del documento"
-                //
                 // IMPORTANTE:
                 // Este _id NO es el _id original del documento.
                 // En $group, _id representa:
@@ -95,9 +79,7 @@ export class ReservaRepository {
                 _id: "$alojamiento",
 
                 // totalReservas será un nuevo campo.
-                // $sum suma valores.
-                // $sum: 1 significa:
-                // "sumá 1 por cada documento del grupo"
+                // $sum: 1 significa: "sumá 1 por cada documento del grupo"
                 // Es decir cuenta cuántas reservas hay.
                 totalReservas: {
                     $sum: 1
@@ -105,10 +87,6 @@ export class ReservaRepository {
             }
         },
 
-        // =====================================================
-        // ETAPA 2 -> $lookup
-        // =====================================================
-        //
         // $lookup sirve para relacionar colecciones.
         // Es parecido a un JOIN en SQL.
         // Hasta ahora tenemos algo así:
@@ -127,20 +105,15 @@ export class ReservaRepository {
                 // OJO: Acá va el nombre REAL de la colección en MongoDB.
                 // NO el nombre del modelo.
                 from: "alojamientos",
-
                 // localField: campo del documento ACTUAL.
-                // Actualmente el _id contiene el ObjectId
-                // del alojamiento.
+                // Actualmente el _id contiene el ObjectId del alojamiento.
                 localField: "_id",
-
                 // foreignField: campo de la colección externa con el que queremos comparar.
                 // En alojamientos buscamos:
                 // alojamiento._id == _id actual
                 foreignField: "_id",
-
                 // as: nombre del nuevo campo donde se guardará el resultado.
                 // IMPORTANTE: $lookup SIEMPRE devuelve un ARRAY. Aunque encuentre un solo documento.
-                //
                 // Resultado:
                 // {
                 //   _id: ObjectId(...),
@@ -153,11 +126,6 @@ export class ReservaRepository {
                 as: "alojamiento"
             }
         },
-
-        // =====================================================
-        // ETAPA 3 -> $unwind
-        // =====================================================
-
         // $unwind rompe/desarma arrays.
         // Como $lookup devuelve un array:
         // alojamiento: [ {...} ]
@@ -167,11 +135,6 @@ export class ReservaRepository {
         {
             $unwind: "$alojamiento"
         },
-
-        // =====================================================
-        // ETAPA 4 -> $project
-        // =====================================================
-        //
         // $project sirve para:
         // - elegir qué campos mostrar
         // - renombrar campos
@@ -179,18 +142,12 @@ export class ReservaRepository {
         // - transformar salida
         {
             $project: {
-
-                // _id: 0 significa:
-                // NO mostrar _id
+                // _id: 0 significa: NO mostrar _id
                 _id: 0,
-
-                // Creamos un nuevo campo llamado "alojamiento"
-                // y le asignamos: alojamiento.nombre
+                // Creamos un nuevo campo llamado "alojamiento" y le asignamos: alojamiento.nombre
                 // El símbolo $ indica: "leer este campo"
                 alojamiento: "$alojamiento.nombre",
-
-                // totalReservas: 1 significa:
-                // incluir el campo totalReservas.
+                // totalReservas: 1 significa: incluir el campo totalReservas.
                 totalReservas: 1
             }
         }

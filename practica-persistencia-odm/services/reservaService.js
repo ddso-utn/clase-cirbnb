@@ -72,11 +72,6 @@ export class ReservaService {
         await this.reservaRepository.delete(id);
         return this.toDTO(reserva);
     }
-
-
-
-
-    //-------------- EXTRA
     
     //AGREGACION
     async reservasPorAlojamiento() {
@@ -95,7 +90,7 @@ export class ReservaService {
 
         return {
             //ACA SI LO CONVIERTO EN OBJETO JS CON DATOS PUROS
-            ...reserva.toObject(), //... DESPARRAMA PROPIEDADES DEL OBJETO RESERVA EN EL NUEVO OBJETO QUE ESTOY CREANDO
+            ...reserva.toObject(), //... LLENA LAS PROPIEDADES DEL OBJETO RESERVA EN EL NUEVO OBJETO QUE ESTOY CREANDO
             cantidadDias: dias,
             totalReserva: total
         }
@@ -106,18 +101,13 @@ export class ReservaService {
     /*
     Una sesión permite agrupar operaciones MongoDB
     dentro de un mismo contexto transaccional.
-
     Si algo falla, se puede hacer rollback.
-
     La transacción es lógica de negocio, POR ENDE VA EN SERVICE
-    
     Aunque acá usamos una sola operación,
     las sesiones son útiles cuando
     hay múltiples escrituras relacionadas.
-
     Las transacciones en Mongo requieren replica set, que es una config pensada para alta disp, replicacion, consistencia, etc auqneu se tenga solo una instancia.
     En producción suele usarse Atlas o clusters replicados. Y a veces al instalar local suele venir desactivada esta opcion.
-
     */
 
     async createReserva(data) {
@@ -145,15 +135,16 @@ export class ReservaService {
             session.endSession()
         }
     }
-
-        //y el el repo:
-        async create(data, session) {
-
+        
+    //Y EN EL REPOSITORY DEBERIAMOS:
+    /*
+    async create(data, session) {
             // create usando sesión Mongo
             return await this.model.create(
                 [data],
                 { session }
             )
-        }
+    }
+    */
 
 }

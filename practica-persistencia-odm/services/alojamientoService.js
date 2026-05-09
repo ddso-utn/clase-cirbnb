@@ -35,9 +35,6 @@ export class AlojamientoService {
         const nuevo = new Alojamiento(nombre, precioPorNoche);
         const alojamientoGuardado = await this.alojamientoRepository.save(nuevo);
 
-        //agregar alguna logica del metodo de los alojamientos
-
-
         return this.toDTO(alojamientoGuardado);
     }
 
@@ -47,9 +44,6 @@ export class AlojamientoService {
         if (!alojamiento) {
             throw new NotFoundError("Alojamiento no encontrado");
         }
-
-        //agregar alguna logica del metodo de los alojamientos
-
 
         return this.toDTO(alojamiento);
     }
@@ -77,11 +71,6 @@ export class AlojamientoService {
         return this.toDTO(alojamiento);
     }
 
-
-
-
-
-    //-------------- EXTRA
     //GET ALL PAGINADO
     async findAllPaginated(page, limit) {
         return await this.alojamientoRepository
